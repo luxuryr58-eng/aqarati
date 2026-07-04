@@ -167,35 +167,16 @@ function renderList() {
 
   const cards = filtered.length === 0
     ? `<div class="empty"><div style="font-size:40px;margin-bottom:12px">🏠</div><div>مفيش عقارات لسه، اضغط + عشان تضيف</div></div>`
-    : filtered.map(p => {
-        const sc = STATUS_COLORS[p.status] || STATUS_COLORS["متاح"];
-        return `<div class="prop-card" onclick="openDetail(${p.id})">
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">
-            <div style="flex:1">
-              <div style="font-weight:700;font-size:15px;color:#1e3a5f">${p.title}</div>
-              ${p.code?`<span class="code-badge">🔑 ${p.code}</span>`:""}
-            </div>
-            <span class="tag" style="background:${sc.bg};color:${sc.text};margin-right:8px">${p.status}</span>
-          </div>
-          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:6px">
-            ${(p.areaName||p.location)?`<span style="font-size:12px;color:#6b7280">📍 ${p.areaName?p.areaName+(p.location?" - "+p.location:""):p.location}</span>`:""}
-            ${p.price?`<span style="font-size:12px;color:#059669;font-weight:600">💰 ${p.price} د.ك</span>`:""}
-            ${p.area?`<span style="font-size:12px;color:#6b7280">📐 ${p.area} م²</span>`:""}
-            ${p.rooms?`<span style="font-size:12px;color:#6b7280">🛏 ${p.rooms}</span>`:""}
-            ${p.furnished?`<span style="font-size:12px;color:#6b7280">🛋️ ${p.furnished}</span>`:""}
-          </div>
-          ${p.ownerName?`<div style="font-size:12px;color:#9ca3af;margin-top:6px">👤 ${p.ownerName}</div>`:""}
-        </div>`;
-      }).join("");
+    : filtered.map(p => buildCard(p)).join("");
 
   return `
     <div class="header">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px"><div style="font-size:20px;font-weight:700">🏢 عقاراتي</div><div style="display:flex;gap:8px"><button onclick="importData()" style="background:rgba(255,255,255,0.15);color:#fff;border-radius:8px;padding:6px 10px;font-size:12px;font-family:Cairo,sans-serif">📥 استيراد</button><button onclick="exportData()" style="background:rgba(255,255,255,0.15);color:#fff;border-radius:8px;padding:6px 10px;font-size:12px;font-family:Cairo,sans-serif">📤 نسخ</button></div></div>
       <div style="font-size:13px;opacity:0.8">${state.properties.length} عقار مسجل</div>
-      <input id="searchInput" value="${state.search}" placeholder="🔍 ابحث باسم، كود، موقع، مالك..." style="width:100%;margin-top:14px;padding:10px 14px;border-radius:10px;border:none;font-size:14px;direction:rtl" oninput="state.search=this.value;render()" />
+      <input id="searchInput" value="${state.search}" placeholder="🔍 ابحث باسم، كود، موقع، مالك..." style="width:100%;margin-top:14px;padding:10px 14px;border-radius:10px;border:none;font-size:14px;direction:rtl" oninput="handleSearch(this.value)" />
     </div>
     <div class="filter-bar">${filters}</div>
-    <div style="padding:12px 16px;padding-bottom:100px">${cards}</div>
+    <div style="padding:12px 16px;padding-bottom:100px" id="propCards">${cards}</div>
     <button class="fab" onclick="openAdd()">+</button>`;
 }
 
@@ -434,6 +415,46 @@ function renderForm() {
 
       <button class="btn-primary" onclick="submitForm()">${state.editMode?"✅ حفظ التعديلات":"✅ إضافة العقار"}</button>
     </div>`;
+}
+
+let _searchTimer = null;
+function handleSearch(val) {
+  state.search = val;
+  clearTimeout(_searchTimer);
+  _searchTimer = setTimeout(() => {
+    const el = document.getElementById("propCards");
+    if (!el) { render(); return; }
+    const s = val.toLowerCase();
+    const filtered = state.properties.filter(p => {
+      const match = (p.title||"").includes(s)||(p.location||"").includes(s)||(p.ownerName||"").includes(s)||(p.type||"").includes(s)||((p.code||"").includes(s))||((p.areaName||"").includes(s));
+      const st = state.filterStatus === "الكل" || p.status === state.filterStatus;
+      return match && st;
+    });
+    el.innerHTML = filtered.length === 0
+      ? `<div class="empty"><div style="font-size:40px;margin-bottom:12px">🏠</div><div>مفيش نتائج</div></div>`
+      : filtered.map(p => buildCard(p)).join("");
+  }, 250);
+}
+
+function buildCard(p) {
+  const sc = STATUS_COLORS[p.status] || STATUS_COLORS["متاح"];
+  return `<div class="prop-card" onclick="openDetail(${p.id})">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">
+      <div style="flex:1">
+        <div style="font-weight:700;font-size:15px;color:#1e3a5f">${p.title}</div>
+        ${p.code?`<span class="code-badge">🔑 ${p.code}</span>`:""}
+      </div>
+      <span class="tag" style="background:${sc.bg};color:${sc.text};margin-right:8px">${p.status}</span>
+    </div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:6px">
+      ${(p.areaName||p.location)?`<span style="font-size:12px;color:#6b7280">📍 ${p.areaName?p.areaName+(p.location?" - "+p.location:""):p.location}</span>`:""}
+      ${p.price?`<span style="font-size:12px;color:#059669;font-weight:600">💰 ${p.price} د.ك</span>`:""}
+      ${p.area?`<span style="font-size:12px;color:#6b7280">📐 ${p.area} م²</span>`:""}
+      ${p.rooms?`<span style="font-size:12px;color:#6b7280">🛏 ${p.rooms}</span>`:""}
+      ${p.furnished?`<span style="font-size:12px;color:#6b7280">🛋️ ${p.furnished}</span>`:""}
+    </div>
+    ${p.ownerName?`<div style="font-size:12px;color:#9ca3af;margin-top:6px">👤 ${p.ownerName}</div>`:""}
+  </div>`;
 }
 
 function bindEvents() {
