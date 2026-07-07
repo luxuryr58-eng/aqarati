@@ -32,6 +32,9 @@ button { cursor: pointer; border: none; }
 .btn-wa { display: inline-block; background: #25d366; color: #fff; border-radius: 8px; padding: 8px 16px; font-size: 13px; text-decoration: none; margin-top: 4px; margin-left: 8px; }
 .btn-call { display: inline-block; background: #2563eb; color: #fff; border-radius: 8px; padding: 8px 16px; font-size: 13px; text-decoration: none; margin-top: 4px; }
 .tag { font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 600; white-space: nowrap; }
+.tag-متاح  { background: #d1fae5; color: #065f46; }
+.tag-محجوز { background: #fef3c7; color: #92400e; }
+.tag-مؤجر  { background: #fee2e2; color: #991b1b; }
 .code-badge { font-size: 12px; background: #eff6ff; color: #2563eb; border-radius: 8px; padding: 3px 10px; font-weight: 700; margin-top: 4px; display: inline-block; }
 .filter-bar { display: flex; gap: 8px; padding: 12px 16px; background: #fff; border-bottom: 1px solid #e5e7eb; overflow-x: auto; }
 .filter-btn { padding: 6px 14px; border-radius: 20px; font-size: 13px; white-space: nowrap; }
@@ -43,6 +46,8 @@ button { cursor: pointer; border: none; }
 a { color: #3b82f6; word-break: break-all; }
 #app { padding-bottom: 100px; }
 .empty { text-align: center; color: #9ca3af; padding: 60px 20px; }
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; }
 </style>
 </head>
 <body>
@@ -52,9 +57,9 @@ a { color: #3b82f6; word-break: break-all; }
 const STORAGE_KEY = "real-estate-properties-v2";
 const PROPERTY_TYPES = ["شقة","فيلا","دوبلكس","استوديو","روف","دور","محل تجاري","مكتب","أرض"];
 const STATUS_COLORS = {
-  "متاح": { bg:"#d1fae5", text:"#065f46" },
-  "محجوز": { bg:"#fef3c7", text:"#92400e" },
-  "مؤجر": { bg:"#fee2e2", text:"#991b1b" },
+  "متاح": { bg:"rgba(0,201,167,0.15)", text:"#00C9A7", cls:"tag-متاح" },
+  "محجوز": { bg:"rgba(245,166,35,0.15)", text:"#F5A623", cls:"tag-محجوز" },
+  "مؤجر": { bg:"rgba(255,90,110,0.15)", text:"#FF5A6E", cls:"tag-مؤجر" },
 };
 const FEATURES_LIST = ["تكييف مركزي","تكييف شباك","مطبخ مجهز","مصعد","حارس أمن","كاميرات مراقبة","مسبح","صالة رياضية","بلكونة","غرفة غسيل","إنترنت"];
 const KUWAIT_AREAS = {
@@ -162,7 +167,7 @@ function renderList() {
 
   const filters = ["الكل","متاح","محجوز","مؤجر"].map(s => {
     const active = state.filterStatus === s;
-    return `<button class="filter-btn" data-filter="${s}" style="background:${active?"#2563eb":"#f1f5f9"};color:${active?"#fff":"#4b5563"};font-weight:${active?700:400}">${s}</button>`;
+    return `<button class="filter-btn" data-filter="${s}" style="background:${active?"var(--blue)":"var(--surface)"};color:${active?"#fff":"var(--text2)"};border-color:${active?"var(--blue)":"var(--border2)"};font-weight:${active?700:400}">${s}</button>`;
   }).join("");
 
   const cards = filtered.length === 0
@@ -171,9 +176,18 @@ function renderList() {
 
   return `
     <div class="header">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px"><div style="font-size:20px;font-weight:700">🏢 عقاراتي</div><div style="display:flex;gap:8px"><button onclick="importData()" style="background:rgba(255,255,255,0.15);color:#fff;border-radius:8px;padding:6px 10px;font-size:12px;font-family:Cairo,sans-serif">📥 استيراد</button><button onclick="exportData()" style="background:rgba(255,255,255,0.15);color:#fff;border-radius:8px;padding:6px 10px;font-size:12px;font-family:Cairo,sans-serif">📤 نسخ</button></div></div>
-      <div style="font-size:13px;opacity:0.8">${state.properties.length} عقار مسجل</div>
-      <input id="searchInput" value="${state.search}" placeholder="🔍 ابحث باسم، كود، موقع، مالك..." style="width:100%;margin-top:14px;padding:10px 14px;border-radius:10px;border:none;font-size:14px;direction:rtl" oninput="handleSearch(this.value)" />
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px">
+        <div>
+          <div style="font-size:11px;color:var(--blue);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">REAL ESTATE</div>
+          <div style="font-size:22px;font-weight:700;color:var(--text)">عقاراتي 🏢</div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <button onclick="importData()" style="background:var(--surface2);color:var(--text2);border-radius:10px;padding:8px 12px;font-size:12px;font-family:Cairo,sans-serif;border:1px solid var(--border2)">📥</button>
+          <button onclick="exportData()" style="background:var(--surface2);color:var(--text2);border-radius:10px;padding:8px 12px;font-size:12px;font-family:Cairo,sans-serif;border:1px solid var(--border2)">📤</button>
+        </div>
+      </div>
+      <div style="font-size:13px;color:var(--text2);margin-top:6px">${state.properties.length} عقار مسجل</div>
+      <input id="searchInput" value="${state.search}" placeholder="🔍 ابحث باسم، كود، موقع، مالك..." style="width:100%;margin-top:14px;padding:12px 16px;border-radius:12px;border:1px solid var(--border2);font-size:14px;direction:rtl;background:var(--surface2);color:var(--text)" oninput="handleSearch(this.value)" />
     </div>
     <div class="filter-bar">${filters}</div>
     <div style="padding:12px 16px;padding-bottom:100px" id="propCards">${cards}</div>
@@ -186,14 +200,14 @@ function renderDetail() {
   const sc = STATUS_COLORS[p.status] || STATUS_COLORS["متاح"];
 
   const stats = [
-    {icon:"💰",label:"السعر",val:p.price?p.price+" د.ك":null},
-    {icon:"📐",label:"المساحة",val:p.area?p.area+" م²":null},
-    {icon:"🛏",label:"الغرف",val:p.rooms},
-    {icon:"🚿",label:"الحمامات",val:p.bathrooms},
-    {icon:"🚗",label:"مواقف السيارات",val:p.parkingCount},
-  ].filter(x=>x.val).map(x=>`<div class="stat-box"><div style="font-size:20px">${x.icon}</div><div style="font-size:13px;font-weight:700;color:#1e3a5f">${x.val}</div><div style="font-size:11px;color:#9ca3af">${x.label}</div></div>`).join("");
+    {icon:"💰",label:"السعر",val:p.price?p.price+" د.ك":null, color:"var(--gold)", glow:"var(--gold-glow)"},
+    {icon:"📐",label:"المساحة",val:p.area?p.area+" م²":null, color:"var(--blue)", glow:"var(--blue-glow)"},
+    {icon:"🛏",label:"الغرف",val:p.rooms, color:"var(--teal)", glow:"var(--teal-glow)"},
+    {icon:"🚿",label:"الحمامات",val:p.bathrooms, color:"var(--text)", glow:"var(--surface2)"},
+    {icon:"🚗",label:"مواقف",val:p.parkingCount, color:"var(--text)", glow:"var(--surface2)"},
+  ].filter(x=>x.val).map(x=>`<div class="stat-box" style="background:${x.glow};border-color:rgba(255,255,255,0.1)"><div style="font-size:22px;margin-bottom:4px">${x.icon}</div><div style="font-size:14px;font-weight:700;color:${x.color}">${x.val}</div><div style="font-size:10px;color:var(--text3);margin-top:2px;text-transform:uppercase;letter-spacing:0.4px">${x.label}</div></div>`).join("");
 
-  const F = (label,val,href="") => val ? `<div style="margin-bottom:10px"><div class="flabel">${label}</div>${href?`<a href="${href}" target="_blank">${val}</a>`:`<div class="fval">${val}</div>`}</div>` : "";
+  const F = (label,val,href="") => val ? `<div style="margin-bottom:12px"><div class="flabel">${label}</div>${href?`<a href="${href}" target="_blank" style="color:var(--blue)">${val}</a>`:`<div class="fval">${val}</div>`}</div>` : "";
 
   const waOwner = p.ownerPhone ? `<a class="btn-wa" href="https://wa.me/2${p.ownerPhone.replace(/^0/,"")}" target="_blank">📲 واتساب</a>` : "";
   const callOwner = p.ownerPhone ? `<a class="btn-call" href="tel:${p.ownerPhone}">📞 اتصال</a>` : "";
@@ -202,28 +216,28 @@ function renderDetail() {
 
   return `
     <div class="header">
-      <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
-        <button class="btn-back" onclick="state.view='list';render()">→ رجوع</button>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+        <button class="btn-back" onclick="state.view='list';render()">← رجوع</button>
         <div style="flex:1"></div>
         <button class="btn-edit" onclick="openEdit()">✏️ تعديل</button>
-        <button class="btn-del" onclick="deleteProp()">🗑️</button>
+        <button class="btn-del" onclick="deleteProp()">🗑</button>
       </div>
-      <div style="font-size:18px;font-weight:700">${p.title}</div>
-      <div style="display:flex;gap:8px;align-items:center;margin-top:6px;flex-wrap:wrap">
-        <span class="tag" style="background:${sc.bg};color:${sc.text}">${p.status}</span>
-        ${p.code?`<span style="background:rgba(255,255,255,0.2);color:#fff;font-size:12px;padding:3px 10px;border-radius:8px;font-weight:700">🔑 ${p.code}</span>
-        <button onclick="navigator.clipboard.writeText('${p.code}').then(()=>{this.textContent='✅';setTimeout(()=>this.textContent='📋 نسخ',1500)})" style="background:rgba(255,255,255,0.15);color:#fff;border:none;border-radius:8px;padding:4px 10px;font-size:12px;font-family:Cairo,sans-serif;cursor:pointer">📋 نسخ</button>`:""}
+      <div style="font-size:19px;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:10px">${p.title}</div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <span class="tag tag-${p.status||"متاح"}">${p.status||"متاح"}</span>
+        ${p.code?`<span style="background:var(--blue-glow);color:var(--blue);font-size:11px;padding:4px 10px;border-radius:8px;font-weight:700;border:1px solid rgba(77,122,255,0.3);letter-spacing:0.5px">${p.code}</span>
+        <button onclick="navigator.clipboard.writeText('${p.code}').then(()=>{this.textContent='✅';setTimeout(()=>this.textContent='نسخ',1500)})" style="background:var(--surface2);color:var(--text2);border:1px solid var(--border2);border-radius:8px;padding:4px 10px;font-size:11px;font-family:Cairo,sans-serif;cursor:pointer">نسخ</button>`:""}
       </div>
     </div>
     <div style="padding:16px;padding-bottom:80px">
-      <div class="grid2" style="margin-bottom:16px">${stats}</div>
+      <div class="grid2" style="margin-bottom:14px">${stats}</div>
 
       <div class="card">
-        <div class="card-title">📋 تفاصيل العقار</div>
-        ${p.code?`<div style="margin-bottom:12px;background:#eff6ff;border-radius:10px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center"><div><div class="flabel">Property Code</div><div style="font-size:16px;font-weight:700;color:#1e3a5f;letter-spacing:1px">${p.code}</div></div><button onclick="navigator.clipboard.writeText('${p.code.replace(/'/g,"\\'")}').then(()=>{this.textContent='✅';setTimeout(()=>this.textContent='📋 نسخ',1500)})" style="background:#2563eb;color:#fff;border:none;border-radius:8px;padding:6px 12px;font-size:12px;font-family:Cairo,sans-serif;cursor:pointer">📋 نسخ</button></div>`:""}
+        <div class="card-title">تفاصيل العقار</div>
+        ${p.code?`<div style="margin-bottom:14px;background:var(--blue-glow);border-radius:12px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;border:1px solid rgba(77,122,255,0.2)"><div><div class="flabel">Property Code</div><div style="font-size:15px;font-weight:700;color:var(--blue);letter-spacing:1px;margin-top:2px">${p.code}</div></div><button onclick="navigator.clipboard.writeText('${p.code.replace(/'/g,"\\'")}').then(()=>{this.textContent='✅';setTimeout(()=>this.textContent='نسخ',1500)})" style="background:var(--blue);color:#fff;border:none;border-radius:8px;padding:7px 14px;font-size:12px;font-family:Cairo,sans-serif;cursor:pointer;font-weight:600">نسخ</button></div>`:""}
         ${F("النوع",p.type)}
         ${F("المنطقة",p.areaName)}
-        ${(p.blockNo||p.streetNo||p.houseNo)?`<div style="margin-bottom:10px"><div class="flabel">العنوان التفصيلي</div><div class="fval">${[p.blockNo?"قطعة "+p.blockNo:"",p.streetNo?"شارع "+p.streetNo:"",p.houseNo?"منزل "+p.houseNo:""].filter(Boolean).join(" - ")}</div></div>`:""}
+        ${(p.blockNo||p.streetNo||p.houseNo)?`<div style="margin-bottom:12px"><div class="flabel">العنوان التفصيلي</div><div class="fval">${[p.blockNo?"قطعة "+p.blockNo:"",p.streetNo?"شارع "+p.streetNo:"",p.houseNo?"منزل "+p.houseNo:""].filter(Boolean).join(" · ")}</div></div>`:""}
         ${F("الرقم الآلي للوحدة",p.unitNo)}
         ${F("الموقع",p.location)}${F("الدور",p.floor)}
         ${F("عدد غرف الماستر",p.masterRooms)}
@@ -266,18 +280,31 @@ function renderForm() {
   // Chip selector: tap to pick one value
   const chips = (label, field, options) => {
     const cur = f[field] || "";
-    const btns = options.map(o => `<button type="button" onclick="state.form['${field}']='${o}';render()" style="padding:8px 14px;border-radius:20px;border:2px solid ${cur===o?"#2563eb":"#e5e7eb"};background:${cur===o?"#2563eb":"#fff"};color:${cur===o?"#fff":"#4b5563"};font-size:13px;font-family:Cairo,sans-serif;cursor:pointer;white-space:nowrap">${o}</button>`).join("");
+    const btns = options.map(o => `<button type="button" onclick="state.form['${field}']='${o}';render()" style="padding:8px 16px;border-radius:20px;border:1px solid ${cur===o?"var(--blue)":"var(--border2)"};background:${cur===o?"var(--blue)":"var(--surface)"};color:${cur===o?"#fff":"var(--text2)"};font-size:13px;font-family:Cairo,sans-serif;cursor:pointer;white-space:nowrap;font-weight:${cur===o?700:400};transition:all 0.15s">${o}</button>`).join("");
     return `<div class="field"><label>${label}</label><div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px">${btns}</div></div>`;
   };
 
-  // Stepper: - number + for numeric fields
-  const stepper = (label, field, min=0, max=20) => {
-    const val = parseInt(f[field]||0);
+  const stepperStyle = `display:flex;align-items:center;border:1px solid var(--border2);border-radius:12px;overflow:hidden;background:var(--surface)`;
+  const stepBtn = `width:52px;height:50px;font-size:22px;background:var(--surface2);border:none;color:var(--text2);cursor:pointer;font-family:Cairo`;
+  const stepInp = `flex:1;text-align:center;font-size:20px;font-weight:700;color:var(--blue);border:none;outline:none;background:var(--surface);padding:0;-moz-appearance:textfield;color:var(--text)`;
+
+  const stepper = (label, field, min=0, max=99) => {
+    const val = f[field]||0;
     return `<div class="field"><label>${label}</label>
-      <div style="display:flex;align-items:center;gap:0;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;background:#fff">
-        <button type="button" onclick="state.form['${field}']=Math.max(${min},parseInt(state.form['${field}']||0)-1);render()" style="width:52px;height:48px;font-size:22px;background:#f8fafc;border:none;color:#374151;cursor:pointer;font-family:Cairo">−</button>
-        <div style="flex:1;text-align:center;font-size:20px;font-weight:700;color:#1e3a5f">${val||0}</div>
-        <button type="button" onclick="state.form['${field}']=Math.min(${max},parseInt(state.form['${field}']||0)+1);render()" style="width:52px;height:48px;font-size:22px;background:#f8fafc;border:none;color:#374151;cursor:pointer;font-family:Cairo">+</button>
+      <div style="${stepperStyle}">
+        <button type="button" onclick="state.form['${field}']=Math.max(${min},parseInt(state.form['${field}']||0)-1);render()" style="${stepBtn}">−</button>
+        <input type="number" value="${val}" min="${min}" oninput="state.form['${field}']=this.value" style="${stepInp}" />
+        <button type="button" onclick="state.form['${field}']=Math.min(${max},parseInt(state.form['${field}']||0)+1);render()" style="${stepBtn}">+</button>
+      </div></div>`;
+  };
+
+  const stepperBig = (label, field, min=0) => {
+    const val = f[field]||0;
+    return `<div class="field"><label>${label}</label>
+      <div style="${stepperStyle}">
+        <button type="button" onclick="state.form['${field}']=Math.max(${min},parseInt(state.form['${field}']||0)-1);render()" style="${stepBtn}">−</button>
+        <input type="number" value="${val}" min="${min}" oninput="state.form['${field}']=this.value" style="${stepInp}" />
+        <button type="button" onclick="state.form['${field}']=parseInt(state.form['${field}']||0)+1;render()" style="${stepBtn}">+</button>
       </div></div>`;
   };
 
@@ -287,8 +314,8 @@ function renderForm() {
   return `
     <div class="header">
       <div style="display:flex;align-items:center;gap:12px">
-        <button class="btn-back" onclick="state.view=state.editMode?'detail':'list';render()">→ رجوع</button>
-        <div style="font-weight:700;font-size:16px">${state.editMode?"✏️ تعديل العقار":"➕ إضافة عقار جديد"}</div>
+        <button class="btn-back" onclick="state.view=state.editMode?'detail':'list';render()">← رجوع</button>
+        <div style="font-weight:700;font-size:16px;color:var(--text)">${state.editMode?"✏️ تعديل العقار":"➕ عقار جديد"}</div>
       </div>
     </div>
     <div style="padding:16px;padding-bottom:100px">
@@ -346,7 +373,7 @@ function renderForm() {
           <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px">
             ${Object.keys(KUWAIT_AREAS).map(gov => {
               const active = f.govName === gov;
-              return `<button type="button" onclick="state.form.govName='${gov}';state.form.areaName='';render()" style="padding:8px 14px;border-radius:20px;border:2px solid ${active?"#2563eb":"#e5e7eb"};background:${active?"#2563eb":"#fff"};color:${active?"#fff":"#4b5563"};font-size:13px;font-family:Cairo,sans-serif;cursor:pointer">${gov}</button>`;
+              return `<button type="button" onclick="state.form.govName='${gov}';state.form.areaName='';render()" style="padding:8px 16px;border-radius:20px;border:1px solid ${active?"var(--blue)":"var(--border2)"};background:${active?"var(--blue)":"var(--surface)"};color:${active?"#fff":"var(--text2)"};font-size:13px;font-family:Cairo,sans-serif;cursor:pointer;font-weight:${active?700:400}">${gov}</button>`;
             }).join("")}
           </div>
         </div>
@@ -357,29 +384,34 @@ function renderForm() {
           <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px">
             ${(KUWAIT_AREAS[f.govName]||[]).map(area => {
               const active = f.areaName === area;
-              return `<button type="button" onclick="state.form.areaName='${area}';render()" style="padding:8px 14px;border-radius:20px;border:2px solid ${active?"#2563eb":"#e5e7eb"};background:${active?"#eff6ff":"#fff"};color:${active?"#2563eb":"#4b5563"};font-size:13px;font-family:Cairo,sans-serif;cursor:pointer">${area}</button>`;
+              return `<button type="button" onclick="state.form.areaName='${area}';render()" style="padding:8px 16px;border-radius:20px;border:1px solid ${active?"var(--teal)":"var(--border2)"};background:${active?"var(--teal-glow)":"var(--surface)"};color:${active?"var(--teal)":"var(--text2)"};font-size:13px;font-family:Cairo,sans-serif;cursor:pointer;font-weight:${active?700:400}">${area}</button>`;
             }).join("")}
           </div>
         </div>` : ""}
 
         <!-- Address numbers as steppers -->
         <div class="grid2">
-          ${stepper("رقم القطعة","blockNo",1,30)}
-          ${stepper("رقم الشارع","streetNo",1,99)}
+          ${stepperBig("رقم القطعة","blockNo",1)}
+          ${stepperBig("رقم المنزل","houseNo",1)}
         </div>
-        <div class="grid2">
-          ${stepper("رقم المنزل","houseNo",1,200)}
-          ${stepper("رقم الوحدة","unitNo",1,200)}
+        <div class="field">
+          <label>رقم / اسم الشارع</label>
+          <div style="${stepperStyle}">
+            <button type="button" onclick="const v=parseInt(state.form.streetNo)||0;if(v>0)state.form.streetNo=v-1;else return;render()" style="${stepBtn}">−</button>
+            <input type="text" value="${(f.streetNo||"").replace(/"/g,'&quot;')}" placeholder="رقم أو اسم" oninput="state.form.streetNo=this.value" style="flex:1;text-align:center;font-size:16px;font-weight:700;color:var(--text);border:none;outline:none;background:var(--surface);padding:8px" />
+            <button type="button" onclick="const v=parseInt(state.form.streetNo)||0;state.form.streetNo=v+1;render()" style="${stepBtn}">+</button>
+          </div>
         </div>
+        ${stepperBig("رقم الوحدة","unitNo",1)}
 
         ${inp("ملاحظات العنوان","location","أي تفاصيل إضافية...")}
         <div class="field">
           <label>لينك الخريطة (Google Maps)</label>
           <div style="display:flex;gap:8px;align-items:center">
-            <input type="text" id="mapLinkInput" value="${(f.mapLink||"").replace(/"/g,'&quot;')}" placeholder="https://maps.google.com/..." oninput="state.form['mapLink']=this.value" style="flex:1;padding:10px 12px;border-radius:10px;border:1px solid #e5e7eb;font-size:14px;direction:rtl" />
-            <button type="button" id="gpsBtn" onclick="getMyLocation()" style="background:linear-gradient(135deg,#2563eb,#1e40af);color:#fff;border-radius:10px;padding:10px 12px;font-size:13px;white-space:nowrap;font-family:Cairo,sans-serif">📍 موقعي</button>
+            <input type="text" id="mapLinkInput" value="${(f.mapLink||"").replace(/"/g,'&quot;')}" placeholder="https://maps.google.com/..." oninput="state.form['mapLink']=this.value" style="flex:1;padding:12px;border-radius:12px;border:1px solid var(--border2);font-size:14px;direction:rtl;background:var(--surface2);color:var(--text)" />
+            <button type="button" id="gpsBtn" onclick="getMyLocation()" style="background:var(--blue);color:#fff;border-radius:12px;padding:12px 14px;font-size:13px;white-space:nowrap;font-family:Cairo,sans-serif;font-weight:600;box-shadow:0 4px 12px var(--blue-glow)">📍 موقعي</button>
           </div>
-          <div id="gpsStatus" style="font-size:11px;color:#9ca3af;margin-top:4px"></div>
+          <div id="gpsStatus" style="font-size:11px;color:var(--text3);margin-top:6px"></div>
         </div>
       </div>
 
@@ -401,7 +433,7 @@ function renderForm() {
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
           ${FEATURES_LIST.map(feat => {
             const checked = normalizeFeatures(f.features).includes(feat);
-            return `<button type="button" onclick="toggleFeature('${feat}',${!checked});render()" style="display:flex;align-items:center;gap:8px;font-size:13px;color:${checked?"#2563eb":"#4b5563"};background:${checked?"#eff6ff":"#f8fafc"};border:2px solid ${checked?"#93c5fd":"#e5e7eb"};border-radius:10px;padding:10px;cursor:pointer;font-family:Cairo,sans-serif;text-align:right">
+            return `<button type="button" onclick="toggleFeature('${feat}',${!checked});render()" style="display:flex;align-items:center;gap:8px;font-size:13px;color:${checked?"var(--teal)":"var(--text2)"};background:${checked?"var(--teal-glow)":"var(--surface)"};border:1px solid ${checked?"rgba(0,201,167,0.4)":"var(--border2)"};border-radius:10px;padding:10px;cursor:pointer;font-family:Cairo,sans-serif;text-align:right;transition:all 0.15s">
               <span style="font-size:16px">${checked?"✅":"⬜"}</span>${feat}
             </button>`;
           }).join("")}
@@ -439,21 +471,20 @@ function handleSearch(val) {
 function buildCard(p) {
   const sc = STATUS_COLORS[p.status] || STATUS_COLORS["متاح"];
   return `<div class="prop-card" onclick="openDetail(${p.id})">
-    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">
-      <div style="flex:1">
-        <div style="font-weight:700;font-size:15px;color:#1e3a5f">${p.title}</div>
-        ${p.code?`<span class="code-badge">🔑 ${p.code}</span>`:""}
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
+      <div style="flex:1;min-width:0">
+        <div style="font-weight:700;font-size:15px;color:var(--text);line-height:1.3;margin-bottom:5px">${p.title}</div>
+        ${p.code?`<span class="code-badge">${p.code}</span>`:""}
       </div>
-      <span class="tag" style="background:${sc.bg};color:${sc.text};margin-right:8px">${p.status}</span>
+      <span class="tag tag-${p.status||"متاح"}" style="margin-right:10px;flex-shrink:0">${p.status||"متاح"}</span>
     </div>
-    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:6px">
-      ${(p.areaName||p.location)?`<span style="font-size:12px;color:#6b7280">📍 ${p.areaName?p.areaName+(p.location?" - "+p.location:""):p.location}</span>`:""}
-      ${p.price?`<span style="font-size:12px;color:#059669;font-weight:600">💰 ${p.price} د.ك</span>`:""}
-      ${p.area?`<span style="font-size:12px;color:#6b7280">📐 ${p.area} م²</span>`:""}
-      ${p.rooms?`<span style="font-size:12px;color:#6b7280">🛏 ${p.rooms}</span>`:""}
-      ${p.furnished?`<span style="font-size:12px;color:#6b7280">🛋️ ${p.furnished}</span>`:""}
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+      ${(p.areaName||p.location)?`<span style="font-size:12px;color:var(--text2);background:var(--surface2);padding:3px 8px;border-radius:6px">📍 ${p.areaName?p.areaName+(p.location?" · "+p.location:""):p.location}</span>`:""}
+      ${p.price?`<span style="font-size:12px;color:var(--gold);font-weight:700;background:var(--gold-glow);padding:3px 8px;border-radius:6px">💰 ${p.price} د.ك</span>`:""}
+      ${p.rooms?`<span style="font-size:12px;color:var(--text2);background:var(--surface2);padding:3px 8px;border-radius:6px">🛏 ${p.rooms}</span>`:""}
+      ${p.area?`<span style="font-size:12px;color:var(--text2);background:var(--surface2);padding:3px 8px;border-radius:6px">📐 ${p.area}م²</span>`:""}
     </div>
-    ${p.ownerName?`<div style="font-size:12px;color:#9ca3af;margin-top:6px">👤 ${p.ownerName}</div>`:""}
+    ${p.ownerName?`<div style="font-size:12px;color:var(--text3);display:flex;align-items:center;gap:4px"><span>👤</span> ${p.ownerName}</div>`:""}
   </div>`;
 }
 
