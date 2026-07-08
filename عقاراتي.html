@@ -220,6 +220,7 @@ function renderDetail() {
         <button class="btn-back" onclick="state.view='list';render()">← رجوع</button>
         <div style="flex:1"></div>
         <button class="btn-edit" onclick="openEdit()">✏️ تعديل</button>
+        <button onclick="duplicateProp()" style="background:rgba(255,255,255,0.2);color:#fff;border-radius:8px;padding:6px 12px;font-size:13px;font-family:Cairo,sans-serif">📋 نسخ</button>
         <button class="btn-del" onclick="deleteProp()">🗑</button>
       </div>
       <div style="font-size:19px;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:10px">${p.title}</div>
@@ -496,6 +497,20 @@ function bindEvents() {
 
 function openDetail(id) { state.selectedId = id; state.view = "detail"; render(); }
 function openAdd() { state.form = emptyForm(); state.form.addedDate = new Date().toLocaleDateString("ar-EG"); state.editMode = false; state.view = "add"; render(); }
+function duplicateProp() {
+  const p = state.properties.find(x=>x.id===state.selectedId);
+  if (!p) return;
+  // copy all fields, clear code and id so a new one gets generated
+  const copy = {...p, features: normalizeFeatures(p.features)};
+  delete copy.id;
+  copy.code = "";
+  copy.addedDate = new Date().toLocaleDateString("ar-EG");
+  state.form = copy;
+  state.editMode = false;
+  state.view = "add";
+  render();
+}
+
 function openEdit() {
   const p = state.properties.find(x=>x.id===state.selectedId);
   const form = {...p, features: normalizeFeatures(p.features)};
