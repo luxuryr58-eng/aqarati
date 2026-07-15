@@ -64,6 +64,10 @@ input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; }
 <script>
 const STORAGE_KEY = "real-estate-properties-v2";
 const THEME_KEY = "aqarati-theme";
+const CONTACT_KEY = "aqarati-contact";
+
+function getMyContact() { try { return localStorage.getItem(CONTACT_KEY) || ""; } catch { return ""; } }
+function saveMyContact(n) { try { localStorage.setItem(CONTACT_KEY, n); } catch {} }
 
 const THEMES = {
   // gradient: from → to
@@ -200,7 +204,7 @@ function emptyForm() {
     location:"", mapLink:"",
     ownerName:"", ownerPhone:"", ownerPhone2:"",
     guardName:"", guardPhone:"",
-    features:[], notes:"", status:"متاح", addedDate:"", readyDate:""
+    features:[], notes:"", marketingDesc:"", status:"متاح", addedDate:"", readyDate:""
   };
 }
 
@@ -246,9 +250,13 @@ function renderList() {
         </div>
       </div>
       <div style="font-size:13px;color:rgba(255,255,255,0.8);margin-bottom:12px">${state.properties.length} عقار مسجل</div>
-      <div style="display:flex;gap:8px;align-items:center;margin-bottom:12px">
-        <span style="font-size:12px;color:rgba(255,255,255,0.7)">اللون:</span>
+      <div style="display:flex;gap:8px;align-items:center;margin-bottom:10px">
+        <span style="font-size:12px;color:rgba(255,255,255,0.7);white-space:nowrap">اللون:</span>
         ${themePicker}
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;margin-bottom:12px;background:rgba(255,255,255,0.12);border-radius:10px;padding:8px 12px">
+        <span style="font-size:12px;color:rgba(255,255,255,0.8);white-space:nowrap">📞 رقمك للإعلانات:</span>
+        <input type="tel" id="myContactInput" value="${getMyContact()}" placeholder="05xxxxxxxx" oninput="saveMyContact(this.value)" style="flex:1;background:transparent;border:none;color:#fff;font-size:14px;font-weight:700;font-family:Cairo,sans-serif;direction:ltr;outline:none" />
       </div>
       <input id="searchInput" value="${state.search}" placeholder="🔍 ابحث باسم، كود، موقع، مالك..." style="width:100%;padding:11px 16px;border-radius:12px;border:2px solid rgba(255,255,255,0.4);font-size:15px;direction:rtl;background:rgba(255,255,255,0.25);color:#fff;font-weight:600" oninput="handleSearch(this.value)" />
     </div>
@@ -316,6 +324,7 @@ function renderDetail() {
         ${F("الجنسية المقبولة",p.nationality)}
         ${F("مسموح بالحيوانات الأليفة",p.petsAllowed)}
         ${(()=>{ const fts = normalizeFeatures(p.features); return fts.length ? `<div style="margin-bottom:10px"><div class="flabel">المميزات</div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px">${fts.map(x=>`<span style="background:#FFF8E7;color:#B8860B;font-size:12px;padding:4px 10px;border-radius:20px;font-weight:600">${x}</span>`).join("")}</div></div>` : ""; })()}
+        ${p.marketingDesc ? `<div style="margin-bottom:12px"><div class="flabel">الوصف التسويقي</div><div style="font-size:13px;color:#374151;line-height:1.8;background:#f8fafc;padding:10px;border-radius:8px;border-right:3px solid var(--th-main)">${p.marketingDesc}</div></div>` : ""}
         ${F("ملاحظات",p.notes)}
         ${p.readyDate ? `<div style="margin-bottom:10px"><div class="flabel">تاريخ الجاهزية المتوقع</div><div style="font-size:14px;font-weight:700;color:${(daysUntil(p.readyDate)||99)<=7?"#dc2626":"#0369a1"}">📅 ${new Date(p.readyDate).toLocaleDateString("ar-KW")} ${daysUntil(p.readyDate)!==null?"("+(daysUntil(p.readyDate)<=0?"انتهى الموعد":daysUntil(p.readyDate)+" يوم")+")":""}</div></div>` : ""}
         ${p.mapLink?F("اللوكشن على الخريطة",p.mapLink,p.mapLink):""}
@@ -338,8 +347,51 @@ function renderDetail() {
         <div style="margin-top:8px">${callGuard} ${waGuard}</div>
       </div>`:""}
 
-      <button class="btn-primary" id="copyBtn" onclick="copyWhatsApp()">📤 انسخ تفاصيل العقار للعميل</button>
+      <button class="btn-primary" id="copyBtn" onclick="copyWhatsApp()">📤 انسخ تفاصيل للعميل</button>
+      <button onclick="copyForSocial(this)" style="width:100%;margin-top:10px;background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;border-radius:14px;padding:14px;font-size:15px;font-weight:700;border:none;cursor:pointer;font-family:Cairo,sans-serif">📱 نسخ للسوشيال ميديا</button>
     </div>`;
+}
+
+function copyForSocial(btn) {
+  const p = state.properties.find(x => x.id === state.selectedId);
+  if (!p) return;
+  const fts = normalizeFeatures(p.features);
+  const lines = [];
+  if (p.code) lines.push(`🏷️ ${p.code}`);
+  lines.push("");
+  if (p.type) lines.push(`🏠 ${p.type}${p.areaName ? " في " + p.areaName : ""}${p.furnished === "مفروشة" ? " | مفروشة" : ""}`);
+  if (p.marketingDesc) lines.push("\n" + p.marketingDesc);
+  lines.push("");
+  if (p.floor) lines.push(`• الدور: ${p.floor}`);
+  if (p.masterRooms) lines.push(`• ${p.masterRooms} غرف ماستر`);
+  else if (p.rooms) lines.push(`• ${p.rooms} غرف نوم`);
+  if (p.bathrooms) lines.push(`• ${p.bathrooms} حمام`);
+  if (p.area) lines.push(`• المساحة: ${p.area} م²`);
+  if (p.maidRoom === "نعم") lines.push("• غرفة عاملة مع حمام");
+  if (p.driverRoom === "نعم") lines.push("• غرفة سائق مع حمام");
+  if (p.parkingCount) lines.push(`• ${p.parkingCount} موقف سيارات`);
+  if (fts.length) fts.forEach(f => lines.push(`• ${f}`));
+  lines.push("");
+  if (p.price) lines.push(`💰 الإيجار: ${p.price} د.ك شهرياً`);
+  if (p.hasDeposit === "نعم" && p.depositAmount) lines.push(`🔒 تأمين: ${p.depositAmount} د.ك`);
+  if (p.nationality && p.nationality !== "الكل") lines.push(`👥 ${p.nationality}`);
+  if (p.petsAllowed === "نعم") lines.push("🐾 مسموح بالحيوانات الأليفة");
+
+  const text = lines.join("\n").trim();
+  const original = btn.textContent;
+  const doFallback = () => {
+    const ta = document.createElement("textarea");
+    ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+    document.body.appendChild(ta); ta.focus(); ta.select();
+    try { document.execCommand("copy"); btn.textContent = "✅ تم النسخ!"; setTimeout(() => btn.textContent = original, 2000); } catch {}
+    document.body.removeChild(ta);
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = "✅ تم النسخ!";
+      setTimeout(() => btn.textContent = original, 2000);
+    }).catch(doFallback);
+  } else { doFallback(); }
 }
 
 function renderForm() {
@@ -510,8 +562,12 @@ function renderForm() {
       </div>
 
       <div class="card">
-        <div class="card-title">📝 ملاحظات</div>
-        ${inp("ملاحظات","notes","أي ملاحظات إضافية...")}
+        <div class="card-title">📝 ملاحظات وتسويق</div>
+        <div class="field">
+          <label>✍️ الوصف التسويقي (للإعلانات)</label>
+          <textarea oninput="state.form.marketingDesc=this.value" placeholder="مثال: شقة مميزة بتصميم عملي ومساحات مريحة، مناسبة للعائلات الباحثة عن الخصوصية والراحة..." style="width:100%;padding:10px 12px;border-radius:10px;border:1px solid #e5e7eb;font-size:13px;direction:rtl;font-family:Cairo,sans-serif;min-height:80px;resize:vertical;line-height:1.7">${(f.marketingDesc||"")}</textarea>
+        </div>
+        ${inp("ملاحظات داخلية","notes","ملاحظات خاصة بك فقط...")}
       </div>
 
       <button class="btn-primary" onclick="submitForm()">${state.editMode?"✅ حفظ التعديلات":"✅ إضافة العقار"}</button>
