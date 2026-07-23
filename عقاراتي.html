@@ -824,9 +824,18 @@ function startVoice() {
     };
 
     r.onresult = (e) => {
-      const txt = Array.from(e.results[e.results.length-1]).map(a=>a.transcript).join(" ");
-      if (status) status.textContent = `سمعت: "${txt}"`;
-      if (e.results[e.results.length-1].isFinal) parseVoice(txt);
+      const results = e.results[e.results.length-1];
+      const txts = Array.from(results).map(a=>a.transcript);
+      const txt = txts[0];
+      if (status) status.textContent = `🎙️ سمعت: "${txt}"`;
+      if (results.isFinal) {
+        // try all alternatives
+        let parsed = false;
+        for (const alt of txts) {
+          if (parseVoice(alt)) { parsed = true; break; }
+        }
+        if (!parsed) parseVoice(txt);
+      }
     };
 
     r.onnomatch = () => {
@@ -953,12 +962,15 @@ function parseVoice(txt) {
 
   if (status) {
     if (filled.length) {
-      status.innerHTML = `✅ تم تعرف: <span style="font-weight:700">${filled.join(" | ")}</span>`;
+      status.innerHTML = `✅ "${t}"<br>تم تعرف: <b>${filled.join(" | ")}</b>`;
+      return true;
     } else {
-      status.textContent = "⚠️ ما فهمت حاجة، جرب تاني";
+      status.innerHTML = `⚠️ سمعت: "<b>${t}</b>"<br>ما قدرت أتعرف على البيانات — جرب تقول مثلاً: "شقة السالمية ثلاث غرف 500 دينار"`;
+      return false;
     }
   }
   render();
+  return filled.length > 0;
 }
 
 function removePropertyPhoto(propId, idx) {
