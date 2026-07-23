@@ -122,12 +122,12 @@ const STATUS_COLORS = {
 };
 const FEATURES_LIST = ["تكييف مركزي","تكييف شباك","مطبخ مجهز","مصعد","حارس أمن","كاميرات مراقبة","مسبح","صالة رياضية","بلكونة","غرفة غسيل","إنترنت"];
 const KUWAIT_AREAS = {
-  "العاصمة": ["الشرق","المرقاب","الصوابر","الدسمة","الدعية","الفيحاء","القادسية","القبلة","المنصورية","النزهة","الروضة","الشامية","الخالدية","السرة","اليرموك","قرطبة","الصليبخات","كيفان","بنيد القار","الشويخ","الشويخ الصناعية","قصر السيف"],
-  "حولي": ["حولي","السالمية","الجابرية","مشرف","بيان","الرميثية","حطين","سلوى","الزهراء","النقرة","الشعب","الصديق","الشهداء"],
-  "الفروانية": ["الفروانية","العارضية","جليب الشيوخ","الرابية","الرقعي","خيطان","الأندلس","الضجيج","صباح الناصر","العمرية","الفردوس","عبدالله المبارك"],
-  "مبارك الكبير": ["مبارك الكبير","صباح السالم","القرين","القصور","أبو فطيرة","العدان","المسايل","صباح الأحمد"],
-  "الأحمدي": ["الأحمدي","الفحيحيل","المنقف","أبو حليفة","فهد الأحمد","هدية","الصباحية","الرقة","الوفرة","الجليعة","النويصيب","الخيران","الزور","الشعيبة","المهبولة","العقيلة","ضاحية علي صباح السالم"],
-  "الجهراء": ["الجهراء","الصليبية","النعيم","القصر","تيماء","العيون","الواحة","الجهراء الصناعية","أمغرة","النسيم","كبد"]
+  "العاصمة": ["الشرق","المرقاب","الصوابر","الدسمة","الدعية","الفيحاء","القادسية","القبلة","المنصورية","النزهة","الروضة","الشامية","الخالدية","السرة","اليرموك","قرطبة","الصليبخات","كيفان","بنيد القار","الشويخ","الشويخ الصناعية","قصر السيف","غرناطة","الدوحة","الفروج","المطلاع","الوطية","كاظمة"],
+  "حولي": ["حولي","السالمية","الجابرية","مشرف","بيان","الرميثية","حطين","سلوى","الزهراء","النقرة","الشعب","الصديق","الشهداء","الرميثية","البدع","بيان","ميدان حولي"],
+  "الفروانية": ["الفروانية","العارضية","جليب الشيوخ","الرابية","الرقعي","خيطان","الأندلس","الضجيج","صباح الناصر","العمرية","الفردوس","عبدالله المبارك","الرحاب","إشبيلية","القيروان"],
+  "مبارك الكبير": ["مبارك الكبير","صباح السالم","القرين","القصور","أبو فطيرة","العدان","المسايل","صباح الأحمد","أبو الحصاني","الفنيطيس","المنقف الجديدة","بنيدر"],
+  "الأحمدي": ["الأحمدي","الفحيحيل","المنقف","أبو حليفة","فهد الأحمد","هدية","الصباحية","الرقة","الوفرة","الجليعة","النويصيب","الخيران","الزور","الشعيبة","المهبولة","العقيلة","ضاحية علي صباح السالم","ميناء عبدالله","الظهر","جابر العلي","بنيدر","المقوع","الخيران الجديدة","الوفرة الصناعية"],
+  "الجهراء": ["الجهراء","الصليبية","النعيم","القصر","تيماء","العيون","الواحة","الجهراء الصناعية","أمغرة","النسيم","كبد","الدبدبة","القرين","سعد العبدالله","ناصر","الروضتين"]
 };
 
 // 2-letter code for each area
@@ -141,7 +141,11 @@ const AREA_CODES = {
   "الفروانية":"FR","العارضية":"AR","جليب الشيوخ":"JS","الرابية":"RB","الرقعي":"RQ",
   "خيطان":"KT","الأندلس":"AN","الضجيج":"DJ","صباح الناصر":"SN","العمرية":"OM","الفردوس":"FD","عبدالله المبارك":"AM",
   "مبارك الكبير":"MK","صباح السالم":"SS","القرين":"QN","القصور":"QS2","أبو فطيرة":"AF",
-  "العدان":"AD","المسايل":"MS2","صباح الأحمد":"SA",
+  "العدان":"AD","المسايل":"MS2","صباح الأحمد":"SA","أبو الحصاني":"AH2","الفنيطيس":"FN","بنيدر":"BD",
+  "غرناطة":"GR","الدوحة":"DH","الفروج":"FJ","كاظمة":"KZ","الوطية":"WT",
+  "الرحاب":"RH","إشبيلية":"SV","القيروان":"QR3",
+  "جابر العلي":"JA","ميناء عبدالله":"MA","الظهر":"ZH2","المقوع":"MQ2",
+  "الدبدبة":"DB","سعد العبدالله":"SE","ناصر":"NR","الروضتين":"RZ",
   "الأحمدي":"AH","الفحيحيل":"FC","المنقف":"MF","أبو حليفة":"AK","فهد الأحمد":"FA",
   "هدية":"HD","الصباحية":"SB2","الرقة":"RG","الوفرة":"WF","الجليعة":"GL","النويصيب":"NW",
   "الخيران":"KR","الزور":"ZR","الشعيبة":"SH3","المهبولة":"MB","العقيلة":"AQ","ضاحية علي صباح السالم":"AS",
@@ -314,7 +318,7 @@ function renderDetail() {
         ${F("المنطقة",p.areaName)}
         ${(p.blockNo||p.streetNo||p.houseNo)?`<div style="margin-bottom:12px"><div class="flabel">العنوان التفصيلي</div><div class="fval">${[p.blockNo?"قطعة "+p.blockNo:"",p.streetNo?"شارع "+p.streetNo:"",p.houseNo?"منزل "+p.houseNo:""].filter(Boolean).join(" · ")}</div></div>`:""}
         ${F("الرقم الآلي للوحدة",p.unitNo)}
-        ${F("الموقع",p.location)}${F("الدور",p.floor)}
+        ${F("الموقع",p.location)}${(()=>{ const f=Array.isArray(p.floor)?p.floor.join(" - "):(p.floor||""); return f?`<div style="margin-bottom:10px"><div class="flabel">الدور</div><div class="fval">${f}</div></div>`:""; })()}
         ${F("عدد غرف الماستر",p.masterRooms)}
         ${F("غرفة خادمة بحمام",p.maidRoom)}
         ${F("غرفة سائق بحمام",p.driverRoom)}
@@ -362,7 +366,7 @@ function copyForSocial(btn) {
   if (p.type) lines.push(`🏠 ${p.type}${p.areaName ? " في " + p.areaName : ""}${p.furnished === "مفروشة" ? " | مفروشة" : ""}`);
   if (p.marketingDesc) lines.push("\n" + p.marketingDesc);
   lines.push("");
-  if (p.floor) lines.push(`• الدور: ${p.floor}`);
+  if (p.floor) lines.push(`• الدور: ${Array.isArray(p.floor)?p.floor.join(" - "):p.floor}`);
   if (p.masterRooms) lines.push(`• ${p.masterRooms} غرف ماستر`);
   else if (p.rooms) lines.push(`• ${p.rooms} غرف نوم`);
   if (p.bathrooms) lines.push(`• ${p.bathrooms} حمام`);
@@ -473,7 +477,26 @@ function renderForm() {
           ${stepper("غرف الماستر","masterRooms",0,6)}
           ${stepper("مواقف السيارات","parkingCount",0,10)}
         </div>
-        ${stepper("الدور","floor",0,30)}
+        ${(()=>{
+          const floors = ["سرداب","أرضي","أول","ثاني","ثالث","رابع","خامس","سادس","سابع","ثامن","تاسع","عاشر"];
+          const cur = Array.isArray(f.floor) ? f.floor : (f.floor ? [f.floor] : []);
+          const btns = floors.map(fl => {
+            const selected = cur.includes(fl);
+            return `<button type="button" onclick="
+              const c=Array.isArray(state.form.floor)?[...state.form.floor]:(state.form.floor?[state.form.floor]:[]);
+              const i=c.indexOf('${fl}');
+              if(i>-1)c.splice(i,1);else c.push('${fl}');
+              state.form.floor=c;render();" style="padding:7px 13px;border-radius:20px;border:1px solid ${selected?"var(--th-main)":"#e5e7eb"};background:${selected?"var(--th-main)":"#fff"};color:${selected?"#fff":"#4b5563"};font-size:13px;font-family:Cairo,sans-serif;cursor:pointer;font-weight:${selected?700:400}">${fl}</button>`;
+          }).join("");
+          const customVal = cur.filter(x => !floors.includes(x)).join("، ");
+          return `<div class="field"><label>الدور <span style="font-size:11px;color:#9ca3af">(ممكن تختار أكثر من دور)</span></label>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px">${btns}</div>
+            <input type="text" value="${customVal}" placeholder="أدوار إضافية (مثال: 11، بنتهاوس)" oninput="
+              const base=Array.isArray(state.form.floor)?state.form.floor.filter(x=>['سرداب','أرضي','أول','ثاني','ثالث','رابع','خامس','سادس','سابع','ثامن','تاسع','عاشر'].includes(x)):[];
+              const extra=this.value.split(/[،,]/).map(s=>s.trim()).filter(Boolean);
+              state.form.floor=[...base,...extra];" style="width:100%;padding:9px 12px;border-radius:10px;border:1px solid #e5e7eb;font-size:13px;font-family:Cairo,sans-serif;direction:rtl" />
+          </div>`;
+        })()}
         ${chips("غرفة خادمة بحمام","maidRoom",["نعم","لا"])}
         ${chips("غرفة سائق بحمام","driverRoom",["نعم","لا"])}
         ${chips("تأمين","hasDeposit",["نعم","لا"])}
@@ -801,7 +824,7 @@ function copyWhatsApp() {
   const addrParts = [p.blockNo?"قطعة "+p.blockNo:"",p.streetNo?"شارع "+p.streetNo:"",p.houseNo?"منزل "+p.houseNo:""].filter(Boolean);
   if (addrParts.length) text += `\n🏘️ ${addrParts.join(" - ")}`;
   if (p.unitNo) text += `\n🔢 الرقم الآلي: ${p.unitNo}`;
-  if (p.floor) text += `\n🏢 الدور: ${p.floor}`;
+  if (p.floor) text += `\n🏢 الدور: ${Array.isArray(p.floor)?p.floor.join(" - "):p.floor}`;
   if (p.masterRooms) text += `\n🛌 غرف ماستر: ${p.masterRooms}`;
   if (p.parkingCount) text += `\n🚗 مواقف السيارات: ${p.parkingCount}`;
   if (p.maidRoom) text += `\n🧹 غرفة خادمة بحمام: ${p.maidRoom}`;
