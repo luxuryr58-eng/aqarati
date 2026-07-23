@@ -451,7 +451,10 @@ function renderForm() {
       <div style="display:flex;align-items:center;gap:12px">
         <button class="btn-back" onclick="state.view=state.editMode?'detail':'list';render()">← رجوع</button>
         <div style="font-weight:700;font-size:16px;color:var(--text)">${state.editMode?"✏️ تعديل العقار":"➕ عقار جديد"}</div>
+        <div style="flex:1"></div>
+        <button onclick="startVoice()" id="voiceBtn" style="background:rgba(255,255,255,0.2);color:#fff;border:none;border-radius:10px;padding:8px 14px;font-size:13px;font-family:Cairo,sans-serif;cursor:pointer;display:flex;align-items:center;gap:6px">🎤 صوت</button>
       </div>
+      <div id="voiceStatus" style="font-size:12px;color:rgba(255,255,255,0.8);margin-top:8px;min-height:18px"></div>
     </div>
     <div style="padding:16px;padding-bottom:100px">
 
@@ -785,6 +788,176 @@ function addPhoto(input) {
 function removePhoto(idx) {
   if (!Array.isArray(state.form.photos)) return;
   state.form.photos.splice(idx, 1);
+  render();
+}
+
+function startVoice() {
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const btn = document.getElementById("voiceBtn");
+  const status = document.getElementById("voiceStatus");
+
+  if (!SR) {
+    if (status) status.textContent = "⚠️ متصفحك مش بيدعم الميك — استخدم Chrome";
+    return;
+  }
+
+  // Check if HTTPS or localhost (required for mic)
+  if (location.protocol !== "https:" && location.hostname !== "localhost") {
+    if (status) status.textContent = "⚠️ الميك يحتاج HTTPS — افتح التطبيق من الأيقونة مش من التنزيلات";
+    return;
+  }
+
+  if (btn) { btn.textContent = "⏳ جاري التشغيل..."; btn.style.background = "rgba(255,165,0,0.5)"; }
+  if (status) status.textContent = "بيطلب إذن الميك...";
+
+  // Request mic permission first
+  navigator.mediaDevices.getUserMedia({ audio: true }).then(() => {
+    const r = new SR();
+    r.lang = "ar";
+    r.continuous = false;
+    r.interimResults = true;
+    r.maxAlternatives = 3;
+
+    r.onstart = () => {
+      if (btn) { btn.textContent = "🔴 استمع..."; btn.style.background = "rgba(239,68,68,0.6)"; }
+      if (status) status.textContent = "🎙️ تكلم دلوقتي...";
+    };
+
+    r.onresult = (e) => {
+      const txt = Array.from(e.results[e.results.length-1]).map(a=>a.transcript).join(" ");
+      if (status) status.textContent = `سمعت: "${txt}"`;
+      if (e.results[e.results.length-1].isFinal) parseVoice(txt);
+    };
+
+    r.onnomatch = () => {
+      if (status) status.textContent = "⚠️ ما عرفت أفهم، جرب تاني";
+      if (btn) { btn.textContent = "🎤 صوت"; btn.style.background = "rgba(255,255,255,0.2)"; }
+    };
+
+    r.onerror = (e) => {
+      const msgs = {
+        "not-allowed": "⚠️ إذن الميك مرفوض — اسمح من إعدادات المتصفح",
+        "no-speech": "⚠️ ما سمعت صوت، جرب تاني",
+        "network": "⚠️ مشكلة في الشبكة",
+        "audio-capture": "⚠️ ما قدر يوصل للميك",
+        "service-not-allowed": "⚠️ الخدمة غير متاحة"
+      };
+      if (status) status.textContent = msgs[e.error] || `⚠️ خطأ: ${e.error}`;
+      if (btn) { btn.textContent = "🎤 صوت"; btn.style.background = "rgba(255,255,255,0.2)"; }
+    };
+
+    r.onend = () => {
+      if (btn) { btn.textContent = "🎤 صوت"; btn.style.background = "rgba(255,255,255,0.2)"; }
+    };
+
+    try { r.start(); }
+    catch(e) {
+      if (status) status.textContent = "⚠️ مش قادر يبدأ: " + e.message;
+      if (btn) { btn.textContent = "🎤 صوت"; btn.style.background = "rgba(255,255,255,0.2)"; }
+    }
+
+  }).catch(err => {
+    if (status) status.textContent = "⚠️ إذن الميك مرفوض — اسمح من إعدادات المتصفح وجرب تاني";
+    if (btn) { btn.textContent = "🎤 صوت"; btn.style.background = "rgba(255,255,255,0.2)"; }
+  });
+}
+
+function parseVoice(txt) {
+  const t = txt;
+  const status = document.getElementById("voiceStatus");
+  const filled = [];
+
+  // Property type
+  const typeMap = {"شقة":"شقة","فيلا":"فيلا","فله":"فيلا","دوبلكس":"دوبلكس","استوديو":"استوديو","روف":"روف","دور":"دور","محل":"محل تجاري","مكتب":"مكتب","أرض":"أرض"};
+  for (const [kw, val] of Object.entries(typeMap)) {
+    if (t.includes(kw)) { state.form.type = val; filled.push("النوع: "+val); break; }
+  }
+
+  // Area - check all Kuwait areas
+  for (const areas of Object.values(KUWAIT_AREAS)) {
+    for (const area of areas) {
+      if (t.includes(area)) { state.form.areaName = area; state.form.govName = Object.keys(KUWAIT_AREAS).find(g => KUWAIT_AREAS[g].includes(area)); filled.push("المنطقة: "+area); break; }
+    }
+    if (state.form.areaName) break;
+  }
+
+  // Numbers helper
+  const numWords = {"صفر":0,"واحد":1,"واحدة":1,"اتنين":2,"ثلاثة":3,"ثلاث":3,"اربعة":4,"أربعة":4,"أربع":4,"خمسة":5,"خمس":5,"ستة":6,"ست":6,"سبعة":7,"سبع":7,"ثمانية":8,"تسعة":9,"عشرة":10};
+  const extractNum = (text, keywords) => {
+    for (const kw of keywords) {
+      const i = text.indexOf(kw);
+      if (i === -1) continue;
+      const before = text.slice(Math.max(0,i-15), i);
+      const after = text.slice(i, i+30);
+      const mBefore = before.match(/(\d+)/);
+      if (mBefore) return mBefore[1];
+      const mAfter = after.match(/(\d+)/);
+      if (mAfter) return mAfter[1];
+      for (const [word, n] of Object.entries(numWords)) {
+        if (before.includes(word) || after.includes(word)) return String(n);
+      }
+    }
+    return null;
+  };
+
+  // Rooms
+  const rooms = extractNum(t, ["غرف نوم","غرف","أوض"]);
+  if (rooms) { state.form.rooms = rooms; filled.push("الغرف: "+rooms); }
+
+  // Master rooms
+  const master = extractNum(t, ["ماستر","غرف ماستر"]);
+  if (master) { state.form.masterRooms = master; filled.push("ماستر: "+master); }
+
+  // Bathrooms
+  const bath = extractNum(t, ["حمام","حمامات"]);
+  if (bath) { state.form.bathrooms = bath; filled.push("حمامات: "+bath); }
+
+  // Parking
+  const park = extractNum(t, ["موقف","مواقف","كراج"]);
+  if (park) { state.form.parkingCount = park; filled.push("مواقف: "+park); }
+
+  // Floor
+  const floorMap = {"سرداب":"سرداب","أرضي":"أرضي","ارضي":"أرضي","اول":"أول","أول":"أول","ثاني":"ثاني","تاني":"ثاني","ثالث":"ثالث","رابع":"رابع","خامس":"خامس","سادس":"سادس","سابع":"سابع","ثامن":"ثامن","تاسع":"تاسع","عاشر":"عاشر"};
+  for (const [kw, val] of Object.entries(floorMap)) {
+    if (t.includes(kw)) {
+      const cur = Array.isArray(state.form.floor) ? state.form.floor : (state.form.floor?[state.form.floor]:[]);
+      if (!cur.includes(val)) cur.push(val);
+      state.form.floor = cur;
+      filled.push("الدور: "+val); break;
+    }
+  }
+
+  // Price
+  const priceM = t.match(/(\d[\d,٠-٩]*)\s*(دينار|د\.ك|دك)/);
+  if (priceM) { state.form.price = priceM[1].replace(/[٠-٩]/g, d => d.charCodeAt(0)-1632); filled.push("السعر: "+state.form.price); }
+
+  // Furnished
+  if (t.includes("مفروش") || t.includes("مفروشة")) { state.form.furnished = "مفروشة"; filled.push("مفروشة"); }
+  else if (t.includes("غير مفروش")) { state.form.furnished = "غير مفروشة"; }
+
+  // Maid/Driver
+  if (t.includes("خادمة") || t.includes("عاملة")) { state.form.maidRoom = "نعم"; filled.push("غرفة خادمة"); }
+  if (t.includes("سائق")) { state.form.driverRoom = "نعم"; filled.push("غرفة سائق"); }
+
+  // Features voice
+  const featMap = {"تكييف مركزي":"تكييف مركزي","مصعد":"مصعد","مسبح":"مسبح","بلكونة":"بلكونة","بلكونه":"بلكونة","صالة رياضية":"صالة رياضية","كاميرات":"كاميرات مراقبة","حارس":"حارس أمن","إنترنت":"إنترنت","نت":"إنترنت"};
+  const curFeats = normalizeFeatures(state.form.features);
+  for (const [kw, val] of Object.entries(featMap)) {
+    if (t.includes(kw) && !curFeats.includes(val)) { curFeats.push(val); filled.push(val); }
+  }
+  if (curFeats.length) state.form.features = curFeats;
+
+  // Status
+  if (t.includes("محجوز")) { state.form.status = "محجوز"; filled.push("محجوز"); }
+  else if (t.includes("مؤجر") || t.includes("مأجور")) { state.form.status = "مؤجر"; filled.push("مؤجر"); }
+
+  if (status) {
+    if (filled.length) {
+      status.innerHTML = `✅ تم تعرف: <span style="font-weight:700">${filled.join(" | ")}</span>`;
+    } else {
+      status.textContent = "⚠️ ما فهمت حاجة، جرب تاني";
+    }
+  }
   render();
 }
 
