@@ -208,7 +208,7 @@ function emptyForm() {
     location:"", mapLink:"",
     ownerName:"", ownerPhone:"", ownerPhone2:"",
     guardName:"", guardPhone:"",
-    features:[], notes:"", marketingDesc:"", status:"متاح", addedDate:"", readyDate:""
+    features:[], notes:"", marketingDesc:"", photos:[], status:"متاح", addedDate:"", readyDate:""
   };
 }
 
@@ -310,6 +310,17 @@ function renderDetail() {
     </div>
     <div style="padding:16px;padding-bottom:80px">
       <div class="grid2" style="margin-bottom:14px">${stats}</div>
+
+      ${(Array.isArray(p.photos)&&p.photos.length) ? `<div class="card" style="padding:10px">
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px">
+          ${p.photos.map((src,i) =>
+            `<div style="position:relative;border-radius:8px;overflow:hidden;aspect-ratio:1">
+              <img src="${src}" style="width:100%;height:100%;object-fit:cover;cursor:pointer" onclick="const o=document.createElement('div');o.style='position:fixed;top:0;left:0;width:100%;height:100%;background:#000;z-index:9999;display:flex;align-items:center;justify-content:center';const im=document.createElement('img');im.src='${src}';im.style='max-width:100%;max-height:100%;object-fit:contain';o.appendChild(im);o.onclick=()=>o.remove();document.body.appendChild(o)" />
+              <button onclick="removePropertyPhoto(${p.id},${i})" style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.55);color:#fff;border:none;border-radius:50%;width:22px;height:22px;font-size:13px;cursor:pointer;line-height:1">×</button>
+            </div>`
+          ).join("")}
+        </div>
+      </div>` : ""}
 
       <div class="card">
         <div class="card-title">تفاصيل العقار</div>
@@ -585,6 +596,28 @@ function renderForm() {
       </div>
 
       <div class="card">
+        <div class="card-title">📸 صور العقار</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px">
+          ${(Array.isArray(f.photos)?f.photos:[]).map((src,i) =>
+            `<div style="position:relative;border-radius:10px;overflow:hidden;aspect-ratio:1;background:#f1f5f9">
+              <img src="${src}" style="width:100%;height:100%;object-fit:cover" />
+              <button onclick="removePhoto(${i})" style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.5);color:#fff;border:none;border-radius:50%;width:24px;height:24px;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1">×</button>
+            </div>`
+          ).join("")}
+          <label style="border:2px dashed #d1d5db;border-radius:10px;aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;background:#f8fafc;color:#9ca3af;font-size:12px;gap:4px">
+            <span style="font-size:28px">📷</span>
+            <span>إضافة صورة</span>
+            <input type="file" accept="image/*" multiple onchange="addPhoto(this)" style="display:none" />
+          </label>
+        </div>
+        <label style="display:flex;align-items:center;gap:8px;background:var(--th-bg);border-radius:10px;padding:10px 14px;cursor:pointer;font-size:13px;color:var(--th-dark);font-weight:700;border:1px solid var(--th-main)">
+          <span style="font-size:20px">🤳</span>
+          <span>التقط صورة بالكاميرا</span>
+          <input type="file" accept="image/*" capture="environment" onchange="addPhoto(this)" style="display:none" />
+        </label>
+      </div>
+
+      <div class="card">
         <div class="card-title">📝 ملاحظات وتسويق</div>
         <div class="field">
           <label>✍️ الوصف التسويقي (للإعلانات)</label>
@@ -713,7 +746,7 @@ function duplicateProp() {
 
 function openEdit() {
   const p = state.properties.find(x=>x.id===state.selectedId);
-  const form = {...p, features: normalizeFeatures(p.features)};
+  const form = {...p, features: normalizeFeatures(p.features), photos: Array.isArray(p.photos)?[...p.photos]:[]};
   // infer govName from areaName if missing
   if (!form.govName && form.areaName) {
     for (const [gov, areas] of Object.entries(KUWAIT_AREAS)) {
@@ -722,6 +755,47 @@ function openEdit() {
   }
   state.form = form; state.editMode = true; state.view = "add"; render();
 }
+function addPhoto(input) {
+  const files = Array.from(input.files);
+  if (!files.length) return;
+  files.forEach(file => {
+    const reader = new FileReader();
+    reader.onload = e => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        const MAX = 800;
+        let w = img.width, h = img.height;
+        if (w > h && w > MAX) { h = h * MAX / w; w = MAX; }
+        else if (h > MAX) { w = w * MAX / h; h = MAX; }
+        canvas.width = w; canvas.height = h;
+        canvas.getContext("2d").drawImage(img, 0, 0, w, h);
+        const compressed = canvas.toDataURL("image/jpeg", 0.7);
+        if (!Array.isArray(state.form.photos)) state.form.photos = [];
+        state.form.photos.push(compressed);
+        render();
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+  input.value = "";
+}
+
+function removePhoto(idx) {
+  if (!Array.isArray(state.form.photos)) return;
+  state.form.photos.splice(idx, 1);
+  render();
+}
+
+function removePropertyPhoto(propId, idx) {
+  const p = state.properties.find(x => x.id === propId);
+  if (!p || !Array.isArray(p.photos)) return;
+  p.photos.splice(idx, 1);
+  saveProps(state.properties);
+  render();
+}
+
 function getMyLocation() {
   const btn = document.getElementById("gpsBtn");
   const status = document.getElementById("gpsStatus");
