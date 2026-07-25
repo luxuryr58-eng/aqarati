@@ -797,76 +797,70 @@ function startVoice() {
   const status = document.getElementById("voiceStatus");
 
   if (!SR) {
-    if (status) status.textContent = "⚠️ متصفحك مش بيدعم الميك — استخدم Chrome";
+    if (status) status.textContent = "⚠️ استخدم Chrome على Android";
     return;
   }
 
-  // Check if HTTPS or localhost (required for mic)
   if (location.protocol !== "https:" && location.hostname !== "localhost") {
-    if (status) status.textContent = "⚠️ الميك يحتاج HTTPS — افتح التطبيق من الأيقونة مش من التنزيلات";
+    if (status) status.textContent = "⚠️ افتح التطبيق من الأيقونة على الشاشة الرئيسية";
     return;
   }
 
-  if (btn) { btn.textContent = "⏳ جاري التشغيل..."; btn.style.background = "rgba(255,165,0,0.5)"; }
+  if (btn) { btn.textContent = "⏳..."; btn.style.background = "rgba(255,165,0,0.5)"; }
   if (status) status.textContent = "بيطلب إذن الميك...";
 
-  // Request mic permission first
   navigator.mediaDevices.getUserMedia({ audio: true }).then(() => {
     const r = new SR();
     r.lang = "ar";
-    r.continuous = false;
+    r.continuous = true;
     r.interimResults = true;
-    r.maxAlternatives = 3;
+    r.maxAlternatives = 5;
+
+    let finalText = "";
+    let silenceTimer = null;
 
     r.onstart = () => {
-      if (btn) { btn.textContent = "🔴 استمع..."; btn.style.background = "rgba(239,68,68,0.6)"; }
-      if (status) status.textContent = "🎙️ تكلم دلوقتي...";
+      finalText = "";
+      if (btn) { btn.textContent = "🔴 اتكلم... (اضغط للإيقاف)"; btn.style.background = "rgba(239,68,68,0.7)"; btn.onclick = () => { r.stop(); btn.onclick = () => startVoice(); }; }
+      if (status) status.textContent = "🎙️ تكلم الآن — الميك شغال...";
     };
 
     r.onresult = (e) => {
-      const results = e.results[e.results.length-1];
-      const txts = Array.from(results).map(a=>a.transcript);
-      const txt = txts[0];
-      if (status) status.textContent = `🎙️ سمعت: "${txt}"`;
-      if (results.isFinal) {
-        // try all alternatives
-        let parsed = false;
-        for (const alt of txts) {
-          if (parseVoice(alt)) { parsed = true; break; }
-        }
-        if (!parsed) parseVoice(txt);
+      let interim = "";
+      finalText = "";
+      for (let i = 0; i < e.results.length; i++) {
+        if (e.results[i].isFinal) finalText += e.results[i][0].transcript + " ";
+        else interim += e.results[i][0].transcript;
       }
-    };
+      if (status) status.textContent = `🎙️ "${finalText || interim}"`;
 
-    r.onnomatch = () => {
-      if (status) status.textContent = "⚠️ ما عرفت أفهم، جرب تاني";
-      if (btn) { btn.textContent = "🎤 صوت"; btn.style.background = "rgba(255,255,255,0.2)"; }
-    };
-
-    r.onerror = (e) => {
-      const msgs = {
-        "not-allowed": "⚠️ إذن الميك مرفوض — اسمح من إعدادات المتصفح",
-        "no-speech": "⚠️ ما سمعت صوت، جرب تاني",
-        "network": "⚠️ مشكلة في الشبكة",
-        "audio-capture": "⚠️ ما قدر يوصل للميك",
-        "service-not-allowed": "⚠️ الخدمة غير متاحة"
-      };
-      if (status) status.textContent = msgs[e.error] || `⚠️ خطأ: ${e.error}`;
-      if (btn) { btn.textContent = "🎤 صوت"; btn.style.background = "rgba(255,255,255,0.2)"; }
+      // Stop after 1.5 seconds of silence
+      clearTimeout(silenceTimer);
+      silenceTimer = setTimeout(() => { r.stop(); }, 1500);
     };
 
     r.onend = () => {
-      if (btn) { btn.textContent = "🎤 صوت"; btn.style.background = "rgba(255,255,255,0.2)"; }
+      if (btn) { btn.textContent = "🎤 صوت"; btn.style.background = "rgba(255,255,255,0.2)"; btn.onclick = () => startVoice(); }
+      const txt = finalText.trim();
+      if (txt) {
+        if (!parseVoice(txt)) {
+          if (status) status.innerHTML = `⚠️ سمعت: "<b>${txt}</b>"<br>ما عرفت أتعرف — جرب: "شقة السالمية ثلاث غرف 500 دينار"`;
+        }
+      } else {
+        if (status) status.textContent = "ما سمعت حاجة، جرب تاني";
+      }
     };
 
-    try { r.start(); }
-    catch(e) {
-      if (status) status.textContent = "⚠️ مش قادر يبدأ: " + e.message;
-      if (btn) { btn.textContent = "🎤 صوت"; btn.style.background = "rgba(255,255,255,0.2)"; }
-    }
+    r.onerror = (e) => {
+      const msgs = { "not-allowed":"⚠️ إذن الميك مرفوض","no-speech":"⚠️ ما سمعت صوت","network":"⚠️ مشكلة شبكة","audio-capture":"⚠️ ما قدر يوصل للميك" };
+      if (status) status.textContent = msgs[e.error] || `⚠️ خطأ: ${e.error}`;
+      if (btn) { btn.textContent = "🎤 صوت"; btn.style.background = "rgba(255,255,255,0.2)"; btn.onclick = () => startVoice(); }
+    };
 
-  }).catch(err => {
-    if (status) status.textContent = "⚠️ إذن الميك مرفوض — اسمح من إعدادات المتصفح وجرب تاني";
+    r.start();
+
+  }).catch(() => {
+    if (status) status.textContent = "⚠️ إذن الميك مرفوض — اسمح من إعدادات المتصفح";
     if (btn) { btn.textContent = "🎤 صوت"; btn.style.background = "rgba(255,255,255,0.2)"; }
   });
 }
