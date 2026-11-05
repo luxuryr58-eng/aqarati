@@ -1,10 +1,10 @@
-// Service Worker - عقاراتي (offline support)
-const CACHE = "aqarati-v2";
+// Service Worker - عقاراتي (fast start + offline)
+// Strategy: serve from cache instantly, refresh the cache in the background.
+const CACHE = "aqarati-v3";
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE).then((cache) =>
-      // precache the app shell; ignore failures so install never breaks
       Promise.all(
         ["./", "./index.html", "./%D8%B9%D9%82%D8%A7%D8%B1%D8%A7%D8%AA%D9%8A.html"].map((u) =>
           cache.add(u).catch(() => {})
@@ -28,25 +28,26 @@ self.addEventListener("fetch", (event) => {
   const req = event.request;
   if (req.method !== "GET") return;
   const url = new URL(req.url);
-  if (url.origin !== self.location.origin) return; // never touch external requests
+  if (url.origin !== self.location.origin) return;
 
-  // Network first (so updates arrive), fall back to cache when offline
   event.respondWith(
-    fetch(req)
-      .then((res) => {
-        if (res && res.status === 200) {
-          const copy = res.clone();
-          caches.open(CACHE).then((c) => c.put(req, copy));
-        }
-        return res;
-      })
-      .catch(() =>
-        caches.match(req, { ignoreSearch: true }).then(
-          (hit) =>
-            hit ||
-            caches.match("./index.html") ||
-            caches.match("./%D8%B9%D9%82%D8%A7%D8%B1%D8%A7%D8%AA%D9%8A.html")
-        )
-      )
+    caches.open(CACHE).then(async (cache) => {
+      const cached = await cache.match(req, { ignoreSearch: true });
+
+      // refresh in the background (never blocks opening the app)
+      const refresh = fetch(req)
+        .then((res) => {
+          if (res && res.status === 200) cache.put(req, res.clone());
+          return res;
+        })
+        .catch(() => null);
+
+      if (cached) {
+        event.waitUntil(refresh);
+        return cached; // instant
+      }
+      const fresh = await refresh;
+      return fresh || (await cache.match("./index.html")) || Response.error();
+    })
   );
 });
