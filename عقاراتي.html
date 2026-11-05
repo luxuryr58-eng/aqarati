@@ -22,40 +22,51 @@
 }
 body { font-family: system-ui,-apple-system,'Segoe UI',Roboto,'Noto Sans Arabic','Noto Naskh Arabic',Tahoma,Arial,sans-serif; direction: rtl; background: #f8fafc; min-height: 100vh; }
 input, select, button { font-family: system-ui,-apple-system,'Segoe UI',Roboto,'Noto Sans Arabic','Noto Naskh Arabic',Tahoma,Arial,sans-serif; }
-input, select { width: 100%; padding: 10px 12px; border-radius: 10px; border: 1px solid #e5e7eb; font-size: 14px; direction: rtl; background: #fff; margin-bottom: 0; }
+input, select { width: 100%; padding: 10px 12px; border-radius: 10px; border: 1px solid #e5e7eb; font-size:14px; direction: rtl; background: #fff; margin-bottom: 0; }
 select { appearance: none; }
 button { cursor: pointer; border: none; }
 .header { background: linear-gradient(135deg, var(--th-dark) 0%, var(--th-main) 100%); padding: 20px 16px 24px; color: #fff; overflow: hidden; }
 .card { background: #fff; border-radius: 14px; padding: 16px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
-.card-title { font-weight: 700; color: #374151; margin-bottom: 12px; font-size: 14px; border-bottom: 2px solid var(--th-bg); padding-bottom: 8px; }
+.card-title { font-weight: 700; color: #374151; margin-bottom: 12px; font-size:14px; border-bottom: 2px solid var(--th-bg); padding-bottom: 8px; }
 .field { margin-bottom: 14px; }
-.field label { font-size: 12px; color: #6b7280; display: block; margin-bottom: 4px; }
-.fab { position: fixed; bottom: 72px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, var(--th-main), var(--th-dark)); color: #fff; border-radius: 50%; width: 60px; height: 60px; font-size: 32px; line-height: 1; box-shadow: 0 4px 16px var(--th-glow); display: flex; align-items: center; justify-content: center; padding: 0; }
-.btn-primary { width: 100%; background: linear-gradient(135deg, var(--th-dark), var(--th-main)); color: #fff; border-radius: 14px; padding: 14px; font-size: 15px; font-weight: 700; }
-.btn-back { background: rgba(255,255,255,0.2); color: #fff; border-radius: 8px; padding: 6px 12px; font-size: 13px; }
-.btn-edit { background: rgba(255,255,255,0.2); color: #fff; border-radius: 8px; padding: 6px 12px; font-size: 13px; }
-.btn-del { background: rgba(239,68,68,0.3); color: #fff; border-radius: 8px; padding: 6px 12px; font-size: 13px; }
-.btn-wa { display: inline-block; background: #25d366; color: #fff; border-radius: 8px; padding: 8px 16px; font-size: 13px; text-decoration: none; margin-top: 4px; margin-left: 8px; }
-.btn-call { display: inline-block; background: var(--th-main); color: #fff; border-radius: 8px; padding: 8px 16px; font-size: 13px; text-decoration: none; margin-top: 4px; }
-.tag { font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 600; white-space: nowrap; }
+.field label { font-size:13px; color: #6b7280; display: block; margin-bottom: 4px; }
+.fab { position: fixed; bottom: 72px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, var(--th-main), var(--th-dark)); color: #fff; border-radius: 50%; width: 60px; height: 60px; font-size:32px; line-height: 1; box-shadow: 0 4px 16px var(--th-glow); display: flex; align-items: center; justify-content: center; padding: 0; }
+.btn-primary { width: 100%; background: linear-gradient(135deg, var(--th-dark), var(--th-main)); color: #fff; border-radius: 14px; padding: 14px; font-size:15px; font-weight: 700; }
+.btn-back { background: rgba(255,255,255,0.2); color: #fff; border-radius: 8px; padding: 6px 12px; font-size:14px; }
+.btn-edit { background: rgba(255,255,255,0.2); color: #fff; border-radius: 8px; padding: 6px 12px; font-size:14px; }
+.btn-del { background: rgba(239,68,68,0.3); color: #fff; border-radius: 8px; padding: 6px 12px; font-size:14px; }
+.btn-wa { display: inline-block; background: #25d366; color: #fff; border-radius: 8px; padding: 8px 16px; font-size:14px; text-decoration: none; margin-top: 4px; margin-left: 8px; }
+.btn-call { display: inline-block; background: var(--th-main); color: #fff; border-radius: 8px; padding: 8px 16px; font-size:14px; text-decoration: none; margin-top: 4px; }
+.tag { font-size:12px; padding: 3px 10px; border-radius: 20px; font-weight: 600; white-space: nowrap; }
 .tag-متاح  { background: #d1fae5; color: #065f46; }
 .tag-محجوز { background: #fef3c7; color: #92400e; }
 .tag-مؤجر  { background: #fee2e2; color: #991b1b; }
 .tag-تجهيز { background: #e0f2fe; color: #0369a1; }
-.code-badge { font-size: 12px; background: var(--th-bg); color: var(--th-dark); border-radius: 8px; padding: 3px 10px; font-weight: 700; margin-top: 4px; display: inline-block; }
+.code-badge { font-size:13px; background: var(--th-bg); color: var(--th-dark); border-radius: 8px; padding: 3px 10px; font-weight: 700; margin-top: 4px; display: inline-block; }
 .filter-bar { display: flex; gap: 8px; padding: 12px 16px; background: #fff; border-bottom: 1px solid #e5e7eb; overflow-x: auto; }
-.filter-btn { padding: 6px 14px; border-radius: 20px; font-size: 13px; white-space: nowrap; }
+.filter-btn { padding: 6px 14px; border-radius: 20px; font-size:14px; white-space: nowrap; }
 .prop-card { background: #fff; border-radius: 14px; padding: 16px; margin-bottom: 12px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); cursor: pointer; border: 1px solid #f1f5f9; }
 .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .stat-box { background: #fff; border-radius: 12px; padding: 12px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
-.fval { font-size: 14px; color: #1f2937; font-weight: 500; }
-.flabel { font-size: 11px; color: #9ca3af; margin-bottom: 2px; }
+.fval { font-size:14px; color: #1f2937; font-weight: 700; }
+.flabel { font-size:12px; color: #6b7280; margin-bottom: 2px; }
 a { color: var(--th-main); word-break: break-all; }
 #app { padding-bottom: 100px; }
-.empty { text-align: center; color: #9ca3af; padding: 60px 20px; }
-#searchInput::placeholder { color: rgba(255,255,255,0.7); font-weight: 400; }
+.empty { text-align: center; color: #6b7280; padding: 60px 20px; }
+#searchInput::placeholder { color: rgba(255,255,255,0.7); font-weight: 600; }
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; }
+
+/* ── Bold & readable text ── */
+body { font-weight: 600; color: #111827; }
+input, select, textarea, button { font-weight: 600; }
+input, select, textarea { color: #111827; font-size: 15px; }
+input::placeholder, textarea::placeholder { color: #6b7280; font-weight: 600; opacity: 1; }
+.field label { font-size: 13px; color: #374151; font-weight: 700; }
+.card-title { font-size: 15px; font-weight: 800; color: #111827; }
+.flabel { font-size: 12px; color: #4b5563; font-weight: 700; }
+.fval { font-size: 15px; color: #111827; font-weight: 700; }
+.tag, .code-badge { font-weight: 800; }
 </style>
 </head>
 <body>
@@ -259,7 +270,7 @@ function emptyForm() {
 }
 
 function render() {
-  try { _render(); } catch(e) { document.getElementById("app").innerHTML = '<div style="padding:20px;direction:ltr;font-size:13px;color:#b91c1c">Error: '+e.message+'<br><button onclick="state.view=\'list\';render()" style="margin-top:10px;padding:8px 14px">Back</button></div>'; console.error(e); }
+  try { _render(); } catch(e) { document.getElementById("app").innerHTML = '<div style="padding:20px;direction:ltr;font-size:14px;color:#b91c1c">Error: '+e.message+'<br><button onclick="state.view=\'list\';render()" style="margin-top:10px;padding:8px 14px">Back</button></div>'; console.error(e); }
 }
 function _render() {
   const app = document.getElementById("app");
@@ -284,7 +295,7 @@ function renderList() {
 
   const filters = ["الكل","متاح","محجوز","مؤجر","جاري التجهيز"].map(s => {
     const active = state.filterStatus === s;
-    return `<button class="filter-btn" data-filter="${s}" style="background:${active?"var(--blue)":"var(--surface)"};color:${active?"#fff":"var(--text2)"};border-color:${active?"var(--blue)":"var(--border2)"};font-weight:${active?700:400}">${s}</button>`;
+    return `<button class="filter-btn" data-filter="${s}" style="background:${active?"var(--blue)":"var(--surface)"};color:${active?"#fff":"var(--text2)"};border-color:${active?"var(--blue)":"var(--border2)"};font-weight:${active?800:600}">${s}</button>`;
   }).join("");
 
   const cards = filtered.length === 0
@@ -299,21 +310,21 @@ function renderList() {
     <div class="header">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
         <div>
-          <div style="font-size:11px;color:rgba(255,255,255,0.7);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">REAL ESTATE</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.7);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">REAL ESTATE</div>
           <div style="font-size:22px;font-weight:700">عقاراتي 🏢</div>
         </div>
         <div style="display:flex;gap:8px">
-          <button onclick="importData()" style="background:rgba(255,255,255,0.2);color:#fff;border-radius:10px;padding:8px 12px;font-size:12px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Noto Sans Arabic,Noto Naskh Arabic,Tahoma,Arial,sans-serif">📥</button>
-          <button onclick="exportData()" style="background:rgba(255,255,255,0.2);color:#fff;border-radius:10px;padding:8px 12px;font-size:12px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Noto Sans Arabic,Noto Naskh Arabic,Tahoma,Arial,sans-serif">📤</button>
+          <button onclick="importData()" style="background:rgba(255,255,255,0.2);color:#fff;border-radius:10px;padding:8px 12px;font-size:13px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Noto Sans Arabic,Noto Naskh Arabic,Tahoma,Arial,sans-serif">📥</button>
+          <button onclick="exportData()" style="background:rgba(255,255,255,0.2);color:#fff;border-radius:10px;padding:8px 12px;font-size:13px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Noto Sans Arabic,Noto Naskh Arabic,Tahoma,Arial,sans-serif">📤</button>
         </div>
       </div>
-      <div style="font-size:13px;color:rgba(255,255,255,0.8);margin-bottom:12px">${state.properties.length} عقار مسجل</div>
+      <div style="font-size:14px;color:rgba(255,255,255,0.8);margin-bottom:12px">${state.properties.length} عقار مسجل</div>
       <div style="display:flex;gap:8px;align-items:center;margin-bottom:10px">
-        <span style="font-size:12px;color:rgba(255,255,255,0.7);white-space:nowrap">اللون:</span>
+        <span style="font-size:13px;color:rgba(255,255,255,0.7);white-space:nowrap">اللون:</span>
         ${themePicker}
       </div>
       <div style="display:flex;gap:8px;align-items:center;margin-bottom:12px;background:rgba(255,255,255,0.12);border-radius:10px;padding:8px 12px">
-        <span style="font-size:12px;color:rgba(255,255,255,0.8);white-space:nowrap">📞 رقمك للإعلانات:</span>
+        <span style="font-size:13px;color:rgba(255,255,255,0.8);white-space:nowrap">📞 رقمك للإعلانات:</span>
         <input type="tel" id="myContactInput" value="${getMyContact()}" placeholder="05xxxxxxxx" oninput="saveMyContact(this.value)" style="flex:1;background:transparent;border:none;color:#fff;font-size:14px;font-weight:700;font-family:system-ui,-apple-system,Segoe UI,Roboto,Noto Sans Arabic,Noto Naskh Arabic,Tahoma,Arial,sans-serif;direction:ltr;outline:none" />
       </div>
       <input id="searchInput" value="${state.search}" placeholder="🔍 ابحث باسم، كود، موقع، مالك..." style="width:100%;padding:11px 16px;border-radius:12px;border:2px solid rgba(255,255,255,0.4);font-size:15px;direction:rtl;background:rgba(255,255,255,0.25);color:#fff;font-weight:600;box-sizing:border-box" oninput="handleSearch(this.value)" />
@@ -338,7 +349,7 @@ function renderDetail() {
     {icon:"🛏",label:"الغرف",val:p.rooms, color:"var(--teal)", glow:"var(--teal-glow)"},
     {icon:"🚿",label:"الحمامات",val:p.bathrooms, color:"var(--text)", glow:"var(--surface2)"},
     {icon:"🚗",label:"مواقف",val:p.parkingCount, color:"var(--text)", glow:"var(--surface2)"},
-  ].filter(x=>x.val).map(x=>`<div class="stat-box" style="background:${x.glow};border-color:rgba(255,255,255,0.1)"><div style="font-size:22px;margin-bottom:4px">${x.icon}</div><div style="font-size:14px;font-weight:700;color:${x.color}">${x.val}</div><div style="font-size:10px;color:var(--text3);margin-top:2px;text-transform:uppercase;letter-spacing:0.4px">${x.label}</div></div>`).join("");
+  ].filter(x=>x.val).map(x=>`<div class="stat-box" style="background:${x.glow};border-color:rgba(255,255,255,0.1)"><div style="font-size:22px;margin-bottom:4px">${x.icon}</div><div style="font-size:14px;font-weight:700;color:${x.color}">${x.val}</div><div style="font-size:12px;color:var(--text3);margin-top:2px;text-transform:uppercase;letter-spacing:0.4px">${x.label}</div></div>`).join("");
 
   const F = (label,val,href="") => val ? `<div style="margin-bottom:12px"><div class="flabel">${label}</div>${href?`<a href="${href}" target="_blank" style="color:var(--blue)">${val}</a>`:`<div class="fval">${val}</div>`}</div>` : "";
 
@@ -358,14 +369,14 @@ function renderDetail() {
         <button class="btn-back" onclick="state.view='list';render()">← رجوع</button>
         <div style="flex:1"></div>
         <button class="btn-edit" onclick="openEdit()">✏️ تعديل</button>
-        <button onclick="duplicateProp()" style="background:rgba(255,255,255,0.2);color:#fff;border-radius:8px;padding:6px 12px;font-size:13px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Noto Sans Arabic,Noto Naskh Arabic,Tahoma,Arial,sans-serif">📋 نسخ</button>
+        <button onclick="duplicateProp()" style="background:rgba(255,255,255,0.2);color:#fff;border-radius:8px;padding:6px 12px;font-size:14px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Noto Sans Arabic,Noto Naskh Arabic,Tahoma,Arial,sans-serif">📋 نسخ</button>
         <button class="btn-del" onclick="deleteProp()">🗑</button>
       </div>
       <div style="font-size:19px;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:10px">${p.title}</div>
       <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
         <span class="tag tag-${p.status||"متاح"}">${p.status||"متاح"}</span>
-        ${p.code?`<span style="background:var(--blue-glow);color:var(--blue);font-size:11px;padding:4px 10px;border-radius:8px;font-weight:700;border:1px solid rgba(77,122,255,0.3);letter-spacing:0.5px">${p.code}</span>
-        <button onclick="navigator.clipboard.writeText('${p.code}').then(()=>{this.textContent='✅';setTimeout(()=>this.textContent='نسخ',1500)})" style="background:var(--surface2);color:var(--text2);border:1px solid var(--border2);border-radius:8px;padding:4px 10px;font-size:11px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Noto Sans Arabic,Noto Naskh Arabic,Tahoma,Arial,sans-serif;cursor:pointer">نسخ</button>`:""}
+        ${p.code?`<span style="background:var(--blue-glow);color:var(--blue);font-size:12px;padding:4px 10px;border-radius:8px;font-weight:700;border:1px solid rgba(77,122,255,0.3);letter-spacing:0.5px">${p.code}</span>
+        <button onclick="navigator.clipboard.writeText('${p.code}').then(()=>{this.textContent='✅';setTimeout(()=>this.textContent='نسخ',1500)})" style="background:var(--surface2);color:var(--text2);border:1px solid var(--border2);border-radius:8px;padding:4px 10px;font-size:12px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Noto Sans Arabic,Noto Naskh Arabic,Tahoma,Arial,sans-serif;cursor:pointer">نسخ</button>`:""}
       </div>
     </div>
     <div style="padding:16px;padding-bottom:80px">
@@ -376,7 +387,7 @@ function renderDetail() {
           ${p.photos.map((src,i) =>
             `<div style="position:relative;border-radius:8px;overflow:hidden;aspect-ratio:1">
               <img src="${src}" style="width:100%;height:100%;object-fit:cover;cursor:pointer" onclick="const o=document.createElement('div');o.style='position:fixed;top:0;left:0;width:100%;height:100%;background:#000;z-index:9999;display:flex;align-items:center;justify-content:center';const im=document.createElement('img');im.src='${src}';im.style='max-width:100%;max-height:100%;object-fit:contain';o.appendChild(im);o.onclick=()=>o.remove();document.body.appendChild(o)" />
-              <button onclick="removePropertyPhoto(${p.id},${i})" style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.55);color:#fff;border:none;border-radius:50%;width:22px;height:22px;font-size:13px;cursor:pointer;line-height:1">×</button>
+              <button onclick="removePropertyPhoto(${p.id},${i})" style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.55);color:#fff;border:none;border-radius:50%;width:22px;height:22px;font-size:14px;cursor:pointer;line-height:1">×</button>
             </div>`
           ).join("")}
         </div>
@@ -384,7 +395,7 @@ function renderDetail() {
 
       <div class="card">
         <div class="card-title">تفاصيل العقار</div>
-        ${p.code?`<div style="margin-bottom:14px;background:var(--blue-glow);border-radius:12px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;border:1px solid rgba(77,122,255,0.2)"><div><div class="flabel">Property Code</div><div style="font-size:15px;font-weight:700;color:var(--blue);letter-spacing:1px;margin-top:2px">${p.code}</div></div><button onclick="navigator.clipboard.writeText('${p.code.replace(/'/g,"\\'")}').then(()=>{this.textContent='✅';setTimeout(()=>this.textContent='نسخ',1500)})" style="background:var(--blue);color:#fff;border:none;border-radius:8px;padding:7px 14px;font-size:12px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Noto Sans Arabic,Noto Naskh Arabic,Tahoma,Arial,sans-serif;cursor:pointer;font-weight:600">نسخ</button></div>`:""}
+        ${p.code?`<div style="margin-bottom:14px;background:var(--blue-glow);border-radius:12px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;border:1px solid rgba(77,122,255,0.2)"><div><div class="flabel">Property Code</div><div style="font-size:15px;font-weight:700;color:var(--blue);letter-spacing:1px;margin-top:2px">${p.code}</div></div><button onclick="navigator.clipboard.writeText('${p.code.replace(/'/g,"\\'")}').then(()=>{this.textContent='✅';setTimeout(()=>this.textContent='نسخ',1500)})" style="background:var(--blue);color:#fff;border:none;border-radius:8px;padding:7px 14px;font-size:13px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Noto Sans Arabic,Noto Naskh Arabic,Tahoma,Arial,sans-serif;cursor:pointer;font-weight:600">نسخ</button></div>`:""}
         ${F("النوع",p.type)}
         ${F("المنطقة",p.areaName)}
         ${(p.blockNo||p.streetNo||p.houseNo)?`<div style="margin-bottom:12px"><div class="flabel">العنوان التفصيلي</div><div class="fval">${[p.blockNo?"قطعة "+p.blockNo:"",p.streetNo?"شارع "+p.streetNo:"",p.houseNo?"منزل "+p.houseNo:""].filter(Boolean).join(" · ")}</div></div>`:""}
@@ -398,8 +409,8 @@ function renderDetail() {
         ${F("مفروشة",p.furnished)}
         ${F("الجنسية المقبولة",p.nationality)}
         ${F("مسموح بالحيوانات الأليفة",p.petsAllowed)}
-        ${(()=>{ const fts = normalizeFeatures(p.features); return fts.length ? `<div style="margin-bottom:10px"><div class="flabel">المميزات</div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px">${fts.map(x=>`<span style="background:#FFF8E7;color:#B8860B;font-size:12px;padding:4px 10px;border-radius:20px;font-weight:600">${x}</span>`).join("")}</div></div>` : ""; })()}
-        ${p.marketingDesc ? `<div style="margin-bottom:12px"><div class="flabel">الوصف التسويقي</div><div style="font-size:13px;color:#374151;line-height:1.8;background:#f8fafc;padding:10px;border-radius:8px;border-right:3px solid var(--th-main)">${p.marketingDesc}</div></div>` : ""}
+        ${(()=>{ const fts = normalizeFeatures(p.features); return fts.length ? `<div style="margin-bottom:10px"><div class="flabel">المميزات</div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px">${fts.map(x=>`<span style="background:#FFF8E7;color:#B8860B;font-size:13px;padding:4px 10px;border-radius:20px;font-weight:600">${x}</span>`).join("")}</div></div>` : ""; })()}
+        ${p.marketingDesc ? `<div style="margin-bottom:12px"><div class="flabel">الوصف التسويقي</div><div style="font-size:14px;color:#374151;line-height:1.8;background:#f8fafc;padding:10px;border-radius:8px;border-right:3px solid var(--th-main)">${p.marketingDesc}</div></div>` : ""}
         ${F("ملاحظات",p.notes)}
         ${p.readyDate ? `<div style="margin-bottom:10px"><div class="flabel">تاريخ الجاهزية المتوقع</div><div style="font-size:14px;font-weight:700;color:${(daysUntil(p.readyDate)||99)<=7?"#dc2626":"#0369a1"}">📅 ${new Date(p.readyDate).toLocaleDateString("ar-KW")} ${daysUntil(p.readyDate)!==null?"("+(daysUntil(p.readyDate)<=0?"انتهى الموعد":daysUntil(p.readyDate)+" يوم")+")":""}</div></div>` : ""}
         ${p.mapLink?F("اللوكشن على الخريطة",p.mapLink,p.mapLink):""}
@@ -481,9 +492,9 @@ function bottomTabs() {
 
   const btn = (t, icon, label) => {
     const active = tab === t;
-    return `<button onclick="state.tab='${t}';state.view='list';render()" style="flex:1;padding:10px 0 8px;border:none;background:${active?"var(--th-bg)":"#fff"};color:${active?"var(--th-dark)":"#6b7280"};font-family:system-ui,-apple-system,Segoe UI,Roboto,Noto Sans Arabic,Noto Naskh Arabic,Tahoma,Arial,sans-serif;font-size:12px;font-weight:${active?700:400};cursor:pointer;border-top:3px solid ${active?"var(--th-main)":"transparent"};position:relative">
+    return `<button onclick="state.tab='${t}';state.view='list';render()" style="flex:1;padding:10px 0 8px;border:none;background:${active?"var(--th-bg)":"#fff"};color:${active?"var(--th-dark)":"#6b7280"};font-family:system-ui,-apple-system,Segoe UI,Roboto,Noto Sans Arabic,Noto Naskh Arabic,Tahoma,Arial,sans-serif;font-size:13px;font-weight:${active?800:600};cursor:pointer;border-top:3px solid ${active?"var(--th-main)":"transparent"};position:relative">
       <div style="font-size:18px;margin-bottom:2px">${icon}</div>${label}
-      ${t==="appts"&&upcoming?`<span style="position:absolute;top:6px;right:calc(50% - 18px);background:#dc2626;color:#fff;font-size:10px;padding:1px 5px;border-radius:10px;font-weight:700">${upcoming}</span>`:""}
+      ${t==="appts"&&upcoming?`<span style="position:absolute;top:6px;right:calc(50% - 18px);background:#dc2626;color:#fff;font-size:12px;padding:1px 5px;border-radius:10px;font-weight:700">${upcoming}</span>`:""}
     </button>`;
   };
   return `<div style="position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #e5e7eb;display:flex;z-index:100">
@@ -512,7 +523,7 @@ function renderClients() {
 
   const filters = ["الكل","جديد","قيد المتابعة","تم الإيجار","ملغي"].map(s => {
     const active = sf===s;
-    return `<button class="filter-btn" data-cfilter="${s}" style="background:${active?"var(--th-main)":"#f1f5f9"};color:${active?"#fff":"#4b5563"};font-weight:${active?700:400};border:1px solid ${active?"var(--th-main)":"#e5e7eb"}">${s}</button>`;
+    return `<button class="filter-btn" data-cfilter="${s}" style="background:${active?"var(--th-main)":"#f1f5f9"};color:${active?"#fff":"#4b5563"};font-weight:${active?800:600};border:1px solid ${active?"var(--th-main)":"#e5e7eb"}">${s}</button>`;
   }).join("");
 
   const cards = filtered.length === 0
@@ -523,15 +534,15 @@ function renderClients() {
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
             <div>
               <div style="font-weight:700;font-size:15px;color:#1e3a5f">${c.name||"عميل بدون اسم"}</div>
-              ${c.phone?`<div style="font-size:12px;color:#6b7280;margin-top:3px">📞 ${c.phone}</div>`:""}
+              ${c.phone?`<div style="font-size:13px;color:#4b5563;margin-top:3px">📞 ${c.phone}</div>`:""}
             </div>
-            <span style="background:${col}20;color:${col};font-size:11px;padding:4px 12px;border-radius:20px;font-weight:700">${c.status}</span>
+            <span style="background:${col}20;color:${col};font-size:12px;padding:4px 12px;border-radius:20px;font-weight:700">${c.status}</span>
           </div>
           <div style="display:flex;gap:8px;flex-wrap:wrap">
-            ${c.wantType?`<span style="font-size:12px;color:#6b7280;background:#f1f5f9;padding:3px 8px;border-radius:6px">🏠 ${c.wantType}</span>`:""}
-            ${c.wantArea?`<span style="font-size:12px;color:#6b7280;background:#f1f5f9;padding:3px 8px;border-radius:6px">📍 ${c.wantArea}</span>`:""}
-            ${c.wantBudget?`<span style="font-size:12px;color:#059669;font-weight:600;background:#f0fdf4;padding:3px 8px;border-radius:6px">💰 ${c.wantBudget} د.ك</span>`:""}
-            ${c.wantRooms?`<span style="font-size:12px;color:#6b7280;background:#f1f5f9;padding:3px 8px;border-radius:6px">🛏 ${c.wantRooms}</span>`:""}
+            ${c.wantType?`<span style="font-size:13px;color:#4b5563;background:#f1f5f9;padding:3px 8px;border-radius:6px">🏠 ${c.wantType}</span>`:""}
+            ${c.wantArea?`<span style="font-size:13px;color:#4b5563;background:#f1f5f9;padding:3px 8px;border-radius:6px">📍 ${c.wantArea}</span>`:""}
+            ${c.wantBudget?`<span style="font-size:13px;color:#059669;font-weight:600;background:#f0fdf4;padding:3px 8px;border-radius:6px">💰 ${c.wantBudget} د.ك</span>`:""}
+            ${c.wantRooms?`<span style="font-size:13px;color:#4b5563;background:#f1f5f9;padding:3px 8px;border-radius:6px">🛏 ${c.wantRooms}</span>`:""}
           </div>
         </div>`;
       }).join("");
@@ -540,11 +551,11 @@ function renderClients() {
     <div class="header">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
         <div>
-          <div style="font-size:11px;color:rgba(255,255,255,0.7);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">CLIENTS</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.7);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">CLIENTS</div>
           <div style="font-size:22px;font-weight:700">👥 العملاء</div>
         </div>
       </div>
-      <div style="font-size:13px;color:rgba(255,255,255,0.8);margin-bottom:12px">${state.clients.length} عميل مسجل</div>
+      <div style="font-size:14px;color:rgba(255,255,255,0.8);margin-bottom:12px">${state.clients.length} عميل مسجل</div>
       <input value="${state.clientSearch||""}" placeholder="🔍 ابحث باسم، رقم، منطقة..." id="clientSearchInput" oninput="handleClientSearch(this.value)" style="width:100%;padding:11px 16px;border-radius:12px;border:2px solid rgba(255,255,255,0.4);font-size:15px;direction:rtl;background:rgba(255,255,255,0.25);color:#fff;font-weight:600;box-sizing:border-box" />
     </div>
     <div class="filter-bar">${filters}</div>
@@ -567,7 +578,7 @@ function renderClientDetail() {
         <button class="btn-del" onclick="if(confirm('حذف العميل؟')){saveClients(state.clients.filter(x=>x.id!==state.selectedClientId));state.view='list';state.tab='clients';render()}">🗑</button>
       </div>
       <div style="font-size:19px;font-weight:700">${c.name||"عميل"}</div>
-      <span style="background:${col}30;color:${col};font-size:12px;padding:4px 12px;border-radius:20px;font-weight:700;margin-top:6px;display:inline-block">${c.status}</span>
+      <span style="background:${col}30;color:${col};font-size:13px;padding:4px 12px;border-radius:20px;font-weight:700;margin-top:6px;display:inline-block">${c.status}</span>
     </div>
     <div style="padding:16px;padding-bottom:40px">
       <div class="card">
@@ -601,7 +612,7 @@ function renderClientForm() {
     `<div class="field"><label>${label}</label><input type="${type}" value="${(f[field]||"").replace(/"/g,'&quot;')}" placeholder="${placeholder}" oninput="state.clientForm['${field}']=this.value" /></div>`;
   const chips = (label,field,options) => {
     const cur = f[field]||"";
-    const btns = options.map(o=>`<button type="button" onclick="state.clientForm['${field}']='${o}';render()" style="padding:7px 14px;border-radius:20px;border:1px solid ${cur===o?"var(--th-main)":"#e5e7eb"};background:${cur===o?"var(--th-main)":"#fff"};color:${cur===o?"#fff":"#4b5563"};font-size:13px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Noto Sans Arabic,Noto Naskh Arabic,Tahoma,Arial,sans-serif;cursor:pointer;font-weight:${cur===o?700:400}">${o}</button>`).join("");
+    const btns = options.map(o=>`<button type="button" onclick="state.clientForm['${field}']='${o}';render()" style="padding:7px 14px;border-radius:20px;border:1px solid ${cur===o?"var(--th-main)":"#e5e7eb"};background:${cur===o?"var(--th-main)":"#fff"};color:${cur===o?"#fff":"#4b5563"};font-size:14px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Noto Sans Arabic,Noto Naskh Arabic,Tahoma,Arial,sans-serif;cursor:pointer;font-weight:${cur===o?800:600}">${o}</button>`).join("");
     return `<div class="field"><label>${label}</label><div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px">${btns}</div></div>`;
   };
 
@@ -680,7 +691,7 @@ function renderAppts() {
     const diff = Math.round((d - now) / 60000);
     const dateStr = d.toLocaleDateString("ar-KW", {weekday:"long",day:"numeric",month:"long"});
     const timeStr = d.toLocaleTimeString("ar-KW", {hour:"2-digit",minute:"2-digit"});
-    const urgency = a.done ? "#9ca3af" : diff < 0 ? "#6b7280" : diff <= 60 ? "#dc2626" : diff <= 1440 ? "#f59e0b" : "#2563eb";
+    const urgency = a.done ? "#6b7280" : diff < 0 ? "#6b7280" : diff <= 60 ? "#dc2626" : diff <= 1440 ? "#f59e0b" : "#2563eb";
     const label = a.done ? "✅ تم" : diff < 0 ? "انتهى" : diff < 60 ? `${diff} دقيقة` : diff < 1440 ? `${Math.round(diff/60)} ساعة` : `${Math.round(diff/1440)} يوم`;
     const props = Array.isArray(a.properties) ? a.properties.filter(Boolean) : (a.properties?[a.properties]:[]);
 
@@ -688,31 +699,31 @@ function renderAppts() {
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
         <div style="flex:1">
           <div style="font-weight:700;font-size:15px;color:#1e3a5f">${a.clientName||"عميل"}</div>
-          ${a.clientPhone?`<div style="font-size:12px;color:#6b7280;margin-top:2px">📞 ${a.clientPhone}</div>`:""}
+          ${a.clientPhone?`<div style="font-size:13px;color:#4b5563;margin-top:2px">📞 ${a.clientPhone}</div>`:""}
         </div>
-        <span style="background:${urgency}20;color:${urgency};font-size:11px;padding:4px 12px;border-radius:20px;font-weight:700;white-space:nowrap">${label}</span>
+        <span style="background:${urgency}20;color:${urgency};font-size:12px;padding:4px 12px;border-radius:20px;font-weight:700;white-space:nowrap">${label}</span>
       </div>
-      <div style="font-size:13px;color:#374151;margin-bottom:8px;font-weight:600">📅 ${dateStr} &nbsp;⏰ ${timeStr}</div>
-      ${props.length?`<div style="margin-bottom:8px">${props.map((pr,i)=>`<div style="font-size:13px;color:#374151;background:#f8fafc;border-radius:8px;padding:7px 10px;margin-bottom:4px;border-right:3px solid var(--th-main)">🏠 ${pr}</div>`).join("")}</div>`:""}
-      ${a.notes?`<div style="font-size:12px;color:#6b7280;margin-bottom:8px">📝 ${a.notes}</div>`:""}
+      <div style="font-size:14px;color:#374151;margin-bottom:8px;font-weight:600">📅 ${dateStr} &nbsp;⏰ ${timeStr}</div>
+      ${props.length?`<div style="margin-bottom:8px">${props.map((pr,i)=>`<div style="font-size:14px;color:#374151;background:#f8fafc;border-radius:8px;padding:7px 10px;margin-bottom:4px;border-right:3px solid var(--th-main)">🏠 ${pr}</div>`).join("")}</div>`:""}
+      ${a.notes?`<div style="font-size:13px;color:#4b5563;margin-bottom:8px">📝 ${a.notes}</div>`:""}
       <div style="display:flex;gap:8px;flex-wrap:wrap">
-        ${!a.done?`<button onclick="const i=state.appts.findIndex(x=>x.id===${a.id});state.appts[i].done=true;saveAppts(state.appts);render()" style="background:#d1fae5;color:#065f46;border:none;border-radius:8px;padding:7px 14px;font-size:12px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Noto Sans Arabic,Noto Naskh Arabic,Tahoma,Arial,sans-serif;cursor:pointer;font-weight:700">✅ تم</button>`:""}
-        <button onclick="state.apptForm={...state.appts.find(x=>x.id===${a.id})};state.apptEditId=${a.id};state.view='apptForm';render()" style="background:rgba(255,255,255,0.8);color:#374151;border:1px solid #e5e7eb;border-radius:8px;padding:7px 14px;font-size:12px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Noto Sans Arabic,Noto Naskh Arabic,Tahoma,Arial,sans-serif;cursor:pointer">✏️</button>
-        <button onclick="if(confirm('حذف الموعد؟')){saveAppts(state.appts.filter(x=>x.id!==${a.id}));render()}" style="background:#fee2e2;color:#991b1b;border:none;border-radius:8px;padding:7px 14px;font-size:12px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Noto Sans Arabic,Noto Naskh Arabic,Tahoma,Arial,sans-serif;cursor:pointer">🗑</button>
-        ${a.clientPhone?`<a href="intent://send?phone=965${a.clientPhone.replace(/^0/,"")}#Intent;scheme=whatsapp;package=com.whatsapp.w4b;end" style="background:#d1fae5;color:#065f46;border-radius:8px;padding:7px 14px;font-size:12px;text-decoration:none;font-weight:700">📲 واتساب</a>`:""}
+        ${!a.done?`<button onclick="const i=state.appts.findIndex(x=>x.id===${a.id});state.appts[i].done=true;saveAppts(state.appts);render()" style="background:#d1fae5;color:#065f46;border:none;border-radius:8px;padding:7px 14px;font-size:13px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Noto Sans Arabic,Noto Naskh Arabic,Tahoma,Arial,sans-serif;cursor:pointer;font-weight:700">✅ تم</button>`:""}
+        <button onclick="state.apptForm={...state.appts.find(x=>x.id===${a.id})};state.apptEditId=${a.id};state.view='apptForm';render()" style="background:rgba(255,255,255,0.8);color:#374151;border:1px solid #e5e7eb;border-radius:8px;padding:7px 14px;font-size:13px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Noto Sans Arabic,Noto Naskh Arabic,Tahoma,Arial,sans-serif;cursor:pointer">✏️</button>
+        <button onclick="if(confirm('حذف الموعد؟')){saveAppts(state.appts.filter(x=>x.id!==${a.id}));render()}" style="background:#fee2e2;color:#991b1b;border:none;border-radius:8px;padding:7px 14px;font-size:13px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Noto Sans Arabic,Noto Naskh Arabic,Tahoma,Arial,sans-serif;cursor:pointer">🗑</button>
+        ${a.clientPhone?`<a href="intent://send?phone=965${a.clientPhone.replace(/^0/,"")}#Intent;scheme=whatsapp;package=com.whatsapp.w4b;end" style="background:#d1fae5;color:#065f46;border-radius:8px;padding:7px 14px;font-size:13px;text-decoration:none;font-weight:700">📲 واتساب</a>`:""}
       </div>
     </div>`;
   }
 
   return `
     <div class="header">
-      <div style="font-size:11px;color:rgba(255,255,255,0.7);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">APPOINTMENTS</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.7);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">APPOINTMENTS</div>
       <div style="font-size:22px;font-weight:700">📅 المواعيد</div>
-      <div style="font-size:13px;color:rgba(255,255,255,0.8);margin-top:4px">${upcoming.length} موعد قادم</div>
+      <div style="font-size:14px;color:rgba(255,255,255,0.8);margin-top:4px">${upcoming.length} موعد قادم</div>
     </div>
     <div style="padding:12px 16px;padding-bottom:120px">
-      ${upcoming.length ? upcoming.map(apptCard).join("") : `<div style="text-align:center;color:#9ca3af;padding:40px 0;font-size:13px">مفيش مواعيد قادمة<br>اضغط + لإضافة موعد</div>`}
-      ${past.length ? `<div style="font-size:12px;color:#9ca3af;font-weight:700;margin:16px 0 8px;letter-spacing:0.5px">⏰ المواعيد المنتهية</div>${past.map(apptCard).join("")}` : ""}
+      ${upcoming.length ? upcoming.map(apptCard).join("") : `<div style="text-align:center;color:#4b5563;padding:40px 0;font-size:14px">مفيش مواعيد قادمة<br>اضغط + لإضافة موعد</div>`}
+      ${past.length ? `<div style="font-size:13px;color:#4b5563;font-weight:700;margin:16px 0 8px;letter-spacing:0.5px">⏰ المواعيد المنتهية</div>${past.map(apptCard).join("")}` : ""}
     </div>
     <button class="fab" onclick="state.apptForm=emptyAppt();state.apptEditId=null;state.view='apptForm';render()">+</button>
     ${bottomTabs()}`;
@@ -752,10 +763,10 @@ function renderApptForm() {
         <div class="card-title">🏠 العقارات للمشاهدة</div>
         ${f.properties.map((pr,i) => `
           <div style="display:flex;gap:8px;margin-bottom:10px;align-items:center">
-            <input type="text" value="${pr.replace(/"/g,'&quot;')}" placeholder="مثال: شقة في السالمية ق5 ش12 م23" oninput="state.apptForm.properties[${i}]=this.value" style="flex:1;padding:10px 12px;border-radius:10px;border:1px solid #e5e7eb;font-size:13px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Noto Sans Arabic,Noto Naskh Arabic,Tahoma,Arial,sans-serif;direction:rtl" />
+            <input type="text" value="${pr.replace(/"/g,'&quot;')}" placeholder="مثال: شقة في السالمية ق5 ش12 م23" oninput="state.apptForm.properties[${i}]=this.value" style="flex:1;padding:10px 12px;border-radius:10px;border:1px solid #e5e7eb;font-size:14px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Noto Sans Arabic,Noto Naskh Arabic,Tahoma,Arial,sans-serif;direction:rtl" />
             ${f.properties.length>1?`<button onclick="state.apptForm.properties.splice(${i},1);render()" style="background:#fee2e2;color:#991b1b;border:none;border-radius:8px;padding:8px 12px;cursor:pointer;font-size:16px;flex-shrink:0">✕</button>`:""}
           </div>`).join("")}
-        <button onclick="state.apptForm.properties.push('');render()" style="background:var(--th-bg);color:var(--th-dark);border:1px dashed var(--th-main);border-radius:10px;padding:10px;width:100%;font-family:system-ui,-apple-system,Segoe UI,Roboto,Noto Sans Arabic,Noto Naskh Arabic,Tahoma,Arial,sans-serif;font-size:13px;cursor:pointer;font-weight:700">+ إضافة عقار آخر</button>
+        <button onclick="state.apptForm.properties.push('');render()" style="background:var(--th-bg);color:var(--th-dark);border:1px dashed var(--th-main);border-radius:10px;padding:10px;width:100%;font-family:system-ui,-apple-system,Segoe UI,Roboto,Noto Sans Arabic,Noto Naskh Arabic,Tahoma,Arial,sans-serif;font-size:14px;cursor:pointer;font-weight:700">+ إضافة عقار آخر</button>
       </div>
 
       <div class="card">
@@ -778,7 +789,7 @@ function renderForm() {
   // Chip selector: tap to pick one value
   const chips = (label, field, options) => {
     const cur = f[field] || "";
-    const btns = options.map(o => `<button type="button" onclick="state.form['${field}']='${o}';render()" style="padding:8px 16px;border-radius:20px;border:1px solid ${cur===o?"var(--blue)":"var(--border2)"};background:${cur===o?"var(--blue)":"var(--surface)"};color:${cur===o?"#fff":"var(--text2)"};font-size:13px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Noto Sans Arabic,Noto Naskh Arabic,Tahoma,Arial,sans-serif;cursor:pointer;white-space:nowrap;font-weight:${cur===o?700:400};transition:all 0.15s">${o}</button>`).join("");
+    const btns = options.map(o => `<button type="button" onclick="state.form['${field}']='${o}';render()" style="padding:8px 16px;border-radius:20px;border:1px solid ${cur===o?"var(--blue)":"var(--border2)"};background:${cur===o?"var(--blue)":"var(--surface)"};color:${cur===o?"#fff":"var(--text2)"};font-size:14px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Noto Sans Arabic,Noto Naskh Arabic,Tahoma,Arial,sans-serif;cursor:pointer;white-space:nowrap;font-weight:${cur===o?800:600};transition:all 0.15s">${o}</button>`).join("");
     return `<div class="field"><label>${label}</label><div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px">${btns}</div></div>`;
   };
 
@@ -815,9 +826,9 @@ function renderForm() {
         <button class="btn-back" onclick="state.view=state.editMode?'detail':'list';render()">← رجوع</button>
         <div style="font-weight:700;font-size:16px;color:var(--text)">${state.editMode?"✏️ تعديل العقار":"➕ عقار جديد"}</div>
         <div style="flex:1"></div>
-        <button onclick="startVoice()" id="voiceBtn" style="background:rgba(255,255,255,0.2);color:#fff;border:none;border-radius:10px;padding:8px 14px;font-size:13px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Noto Sans Arabic,Noto Naskh Arabic,Tahoma,Arial,sans-serif;cursor:pointer;display:flex;align-items:center;gap:6px">🎤 صوت</button>
+        <button onclick="startVoice()" id="voiceBtn" style="background:rgba(255,255,255,0.2);color:#fff;border:none;border-radius:10px;padding:8px 14px;font-size:14px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Noto Sans Arabic,Noto Naskh Arabic,Tahoma,Arial,sans-serif;cursor:pointer;display:flex;align-items:center;gap:6px">🎤 صوت</button>
       </div>
-      <div id="voiceStatus" style="font-size:12px;color:rgba(255,255,255,0.8);margin-top:8px;min-height:18px"></div>
+      <div id="voiceStatus" style="font-size:13px;color:rgba(255,255,255,0.8);margin-top:8px;min-height:18px"></div>
     </div>
     <div style="padding:16px;padding-bottom:100px">
 
@@ -831,14 +842,14 @@ function renderForm() {
             <label>كود العقار 🔑</label>
             ${f.areaName ? `<div style="background:#FFF8E7;border:2px solid #D4A017;border-radius:12px;padding:12px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between">
               <div>
-                <div style="font-size:11px;color:#6b7280;margin-bottom:2px">الكود المقترح</div>
+                <div style="font-size:12px;color:#4b5563;margin-bottom:2px">الكود المقترح</div>
                 <div style="font-size:20px;font-weight:700;color:#2C1810;letter-spacing:2px">${displayCode}</div>
               </div>
-              <button type="button" onclick="applyAutoCode()" style="background:#B8860B;color:#fff;border:none;border-radius:8px;padding:8px 12px;font-size:12px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Noto Sans Arabic,Noto Naskh Arabic,Tahoma,Arial,sans-serif;cursor:pointer">✅ استخدم</button>
-            </div>` : `<div style="font-size:12px;color:#9ca3af;margin-bottom:8px">اختر المنطقة أولاً لتوليد الكود تلقائياً</div>`}
+              <button type="button" onclick="applyAutoCode()" style="background:#B8860B;color:#fff;border:none;border-radius:8px;padding:8px 12px;font-size:13px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Noto Sans Arabic,Noto Naskh Arabic,Tahoma,Arial,sans-serif;cursor:pointer">✅ استخدم</button>
+            </div>` : `<div style="font-size:13px;color:#4b5563;margin-bottom:8px">اختر المنطقة أولاً لتوليد الكود تلقائياً</div>`}
             <div style="display:flex;gap:8px;align-items:center">
               <input type="text" value="${(f.code||"").replace(/"/g,'&quot;')}" placeholder="أو اكتب كوداً يدوياً..." oninput="state.form.code=this.value" style="flex:1;padding:10px 12px;border-radius:10px;border:1px solid #e5e7eb;font-size:14px;direction:ltr;text-align:left;letter-spacing:1px;font-weight:600" />
-              ${f.code?`<button type="button" onclick="state.form.code='';render()" style="background:#fee2e2;color:#991b1b;border:none;border-radius:8px;padding:10px 12px;font-size:12px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Noto Sans Arabic,Noto Naskh Arabic,Tahoma,Arial,sans-serif;cursor:pointer">مسح</button>`:""}
+              ${f.code?`<button type="button" onclick="state.form.code='';render()" style="background:#fee2e2;color:#991b1b;border:none;border-radius:8px;padding:10px 12px;font-size:13px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Noto Sans Arabic,Noto Naskh Arabic,Tahoma,Arial,sans-serif;cursor:pointer">مسح</button>`:""}
             </div>
           </div>`;
         })()}
@@ -863,15 +874,15 @@ function renderForm() {
               const c=Array.isArray(state.form.floor)?[...state.form.floor]:(state.form.floor?[state.form.floor]:[]);
               const i=c.indexOf('${fl}');
               if(i>-1)c.splice(i,1);else c.push('${fl}');
-              state.form.floor=c;render();" style="padding:7px 13px;border-radius:20px;border:1px solid ${selected?"var(--th-main)":"#e5e7eb"};background:${selected?"var(--th-main)":"#fff"};color:${selected?"#fff":"#4b5563"};font-size:13px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Noto Sans Arabic,Noto Naskh Arabic,Tahoma,Arial,sans-serif;cursor:pointer;font-weight:${selected?700:400}">${fl}</button>`;
+              state.form.floor=c;render();" style="padding:7px 13px;border-radius:20px;border:1px solid ${selected?"var(--th-main)":"#e5e7eb"};background:${selected?"var(--th-main)":"#fff"};color:${selected?"#fff":"#4b5563"};font-size:14px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Noto Sans Arabic,Noto Naskh Arabic,Tahoma,Arial,sans-serif;cursor:pointer;font-weight:${selected?800:600}">${fl}</button>`;
           }).join("");
           const customVal = cur.filter(x => !floors.includes(x)).join("، ");
-          return `<div class="field"><label>الدور <span style="font-size:11px;color:#9ca3af">(ممكن تختار أكثر من دور)</span></label>
+          return `<div class="field"><label>الدور <span style="font-size:12px;color:#4b5563">(ممكن تختار أكثر من دور)</span></label>
             <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px">${btns}</div>
             <input type="text" value="${customVal}" placeholder="أدوار إضافية (مثال: 11، بنتهاوس)" oninput="
               const base=Array.isArray(state.form.floor)?state.form.floor.filter(x=>['سرداب','أرضي','أول','ثاني','ثالث','رابع','خامس','سادس','سابع','ثامن','تاسع','عاشر'].includes(x)):[];
               const extra=this.value.split(/[،,]/).map(s=>s.trim()).filter(Boolean);
-              state.form.floor=[...base,...extra];" style="width:100%;padding:9px 12px;border-radius:10px;border:1px solid #e5e7eb;font-size:13px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Noto Sans Arabic,Noto Naskh Arabic,Tahoma,Arial,sans-serif;direction:rtl" />
+              state.form.floor=[...base,...extra];" style="width:100%;padding:9px 12px;border-radius:10px;border:1px solid #e5e7eb;font-size:14px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Noto Sans Arabic,Noto Naskh Arabic,Tahoma,Arial,sans-serif;direction:rtl" />
           </div>`;
         })()}
         ${chips("غرفة خادمة بحمام","maidRoom",["نعم","لا"])}
@@ -894,7 +905,7 @@ function renderForm() {
           <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px">
             ${Object.keys(KUWAIT_AREAS).map(gov => {
               const active = f.govName === gov;
-              return `<button type="button" onclick="state.form.govName='${gov}';state.form.areaName='';render()" style="padding:8px 16px;border-radius:20px;border:1px solid ${active?"var(--blue)":"var(--border2)"};background:${active?"var(--blue)":"var(--surface)"};color:${active?"#fff":"var(--text2)"};font-size:13px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Noto Sans Arabic,Noto Naskh Arabic,Tahoma,Arial,sans-serif;cursor:pointer;font-weight:${active?700:400}">${gov}</button>`;
+              return `<button type="button" onclick="state.form.govName='${gov}';state.form.areaName='';render()" style="padding:8px 16px;border-radius:20px;border:1px solid ${active?"var(--blue)":"var(--border2)"};background:${active?"var(--blue)":"var(--surface)"};color:${active?"#fff":"var(--text2)"};font-size:14px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Noto Sans Arabic,Noto Naskh Arabic,Tahoma,Arial,sans-serif;cursor:pointer;font-weight:${active?800:600}">${gov}</button>`;
             }).join("")}
           </div>
         </div>
@@ -905,7 +916,7 @@ function renderForm() {
           <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px">
             ${(KUWAIT_AREAS[f.govName]||[]).map(area => {
               const active = f.areaName === area;
-              return `<button type="button" onclick="state.form.areaName='${area}';render()" style="padding:8px 16px;border-radius:20px;border:1px solid ${active?"var(--teal)":"var(--border2)"};background:${active?"var(--teal-glow)":"var(--surface)"};color:${active?"var(--teal)":"var(--text2)"};font-size:13px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Noto Sans Arabic,Noto Naskh Arabic,Tahoma,Arial,sans-serif;cursor:pointer;font-weight:${active?700:400}">${area}</button>`;
+              return `<button type="button" onclick="state.form.areaName='${area}';render()" style="padding:8px 16px;border-radius:20px;border:1px solid ${active?"var(--teal)":"var(--border2)"};background:${active?"var(--teal-glow)":"var(--surface)"};color:${active?"var(--teal)":"var(--text2)"};font-size:14px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Noto Sans Arabic,Noto Naskh Arabic,Tahoma,Arial,sans-serif;cursor:pointer;font-weight:${active?800:600}">${area}</button>`;
             }).join("")}
           </div>
         </div>` : ""}
@@ -930,9 +941,9 @@ function renderForm() {
           <label>لينك الخريطة (Google Maps)</label>
           <div style="display:flex;gap:8px;align-items:center">
             <input type="text" id="mapLinkInput" value="${(f.mapLink||"").replace(/"/g,'&quot;')}" placeholder="https://maps.google.com/..." oninput="state.form['mapLink']=this.value" style="flex:1;padding:12px;border-radius:12px;border:1px solid var(--border2);font-size:14px;direction:rtl;background:var(--surface2);color:var(--text)" />
-            <button type="button" id="gpsBtn" onclick="getMyLocation()" style="background:var(--blue);color:#fff;border-radius:12px;padding:12px 14px;font-size:13px;white-space:nowrap;font-family:system-ui,-apple-system,Segoe UI,Roboto,Noto Sans Arabic,Noto Naskh Arabic,Tahoma,Arial,sans-serif;font-weight:600;box-shadow:0 4px 12px var(--blue-glow)">📍 موقعي</button>
+            <button type="button" id="gpsBtn" onclick="getMyLocation()" style="background:var(--blue);color:#fff;border-radius:12px;padding:12px 14px;font-size:14px;white-space:nowrap;font-family:system-ui,-apple-system,Segoe UI,Roboto,Noto Sans Arabic,Noto Naskh Arabic,Tahoma,Arial,sans-serif;font-weight:600;box-shadow:0 4px 12px var(--blue-glow)">📍 موقعي</button>
           </div>
-          <div id="gpsStatus" style="font-size:11px;color:var(--text3);margin-top:6px"></div>
+          <div id="gpsStatus" style="font-size:12px;color:var(--text3);margin-top:6px"></div>
         </div>
       </div>
 
@@ -954,7 +965,7 @@ function renderForm() {
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
           ${FEATURES_LIST.map(feat => {
             const checked = normalizeFeatures(f.features).includes(feat);
-            return `<button type="button" onclick="toggleFeature('${feat}',${!checked});render()" style="display:flex;align-items:center;gap:8px;font-size:13px;color:${checked?"var(--teal)":"var(--text2)"};background:${checked?"var(--teal-glow)":"var(--surface)"};border:1px solid ${checked?"rgba(0,201,167,0.4)":"var(--border2)"};border-radius:10px;padding:10px;cursor:pointer;font-family:system-ui,-apple-system,Segoe UI,Roboto,Noto Sans Arabic,Noto Naskh Arabic,Tahoma,Arial,sans-serif;text-align:right;transition:all 0.15s">
+            return `<button type="button" onclick="toggleFeature('${feat}',${!checked});render()" style="display:flex;align-items:center;gap:8px;font-size:14px;color:${checked?"var(--teal)":"var(--text2)"};background:${checked?"var(--teal-glow)":"var(--surface)"};border:1px solid ${checked?"rgba(0,201,167,0.4)":"var(--border2)"};border-radius:10px;padding:10px;cursor:pointer;font-family:system-ui,-apple-system,Segoe UI,Roboto,Noto Sans Arabic,Noto Naskh Arabic,Tahoma,Arial,sans-serif;text-align:right;transition:all 0.15s">
               <span style="font-size:16px">${checked?"✅":"⬜"}</span>${feat}
             </button>`;
           }).join("")}
@@ -970,13 +981,13 @@ function renderForm() {
               <button onclick="removePhoto(${i})" style="position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.5);color:#fff;border:none;border-radius:50%;width:24px;height:24px;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1">×</button>
             </div>`
           ).join("")}
-          <label style="border:2px dashed #d1d5db;border-radius:10px;aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;background:#f8fafc;color:#9ca3af;font-size:12px;gap:4px">
+          <label style="border:2px dashed #d1d5db;border-radius:10px;aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;background:#f8fafc;color:#4b5563;font-size:13px;gap:4px">
             <span style="font-size:28px">📷</span>
             <span>إضافة صورة</span>
             <input type="file" accept="image/*" multiple onchange="addPhoto(this)" style="display:none" />
           </label>
         </div>
-        <label style="display:flex;align-items:center;gap:8px;background:var(--th-bg);border-radius:10px;padding:10px 14px;cursor:pointer;font-size:13px;color:var(--th-dark);font-weight:700;border:1px solid var(--th-main)">
+        <label style="display:flex;align-items:center;gap:8px;background:var(--th-bg);border-radius:10px;padding:10px 14px;cursor:pointer;font-size:14px;color:var(--th-dark);font-weight:700;border:1px solid var(--th-main)">
           <span style="font-size:20px">🤳</span>
           <span>التقط صورة بالكاميرا</span>
           <input type="file" accept="image/*" capture="environment" onchange="addPhoto(this)" style="display:none" />
@@ -987,7 +998,7 @@ function renderForm() {
         <div class="card-title">📝 ملاحظات وتسويق</div>
         <div class="field">
           <label>✍️ الوصف التسويقي (للإعلانات)</label>
-          <textarea oninput="state.form.marketingDesc=this.value" placeholder="مثال: شقة مميزة بتصميم عملي ومساحات مريحة، مناسبة للعائلات الباحثة عن الخصوصية والراحة..." style="width:100%;padding:10px 12px;border-radius:10px;border:1px solid #e5e7eb;font-size:13px;direction:rtl;font-family:system-ui,-apple-system,Segoe UI,Roboto,Noto Sans Arabic,Noto Naskh Arabic,Tahoma,Arial,sans-serif;min-height:80px;resize:vertical;line-height:1.7">${(f.marketingDesc||"")}</textarea>
+          <textarea oninput="state.form.marketingDesc=this.value" placeholder="مثال: شقة مميزة بتصميم عملي ومساحات مريحة، مناسبة للعائلات الباحثة عن الخصوصية والراحة..." style="width:100%;padding:10px 12px;border-radius:10px;border:1px solid #e5e7eb;font-size:14px;direction:rtl;font-family:system-ui,-apple-system,Segoe UI,Roboto,Noto Sans Arabic,Noto Naskh Arabic,Tahoma,Arial,sans-serif;min-height:80px;resize:vertical;line-height:1.7">${(f.marketingDesc||"")}</textarea>
         </div>
         ${inp("ملاحظات داخلية","notes","ملاحظات خاصة بك فقط...")}
       </div>
@@ -1055,15 +1066,15 @@ function buildReadyAlerts() {
     const label = days <= 0 ? "انتهى الموعد!" : days === 1 ? "غداً" : `${days} يوم`;
     return `<div onclick="openDetail(${p.id})" style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-radius:10px;background:#fff;margin-bottom:6px;cursor:pointer;border-right:4px solid ${urgency}">
       <div>
-        <div style="font-size:13px;font-weight:700;color:#1f2937">${p.title}</div>
-        <div style="font-size:11px;color:#6b7280;margin-top:2px">📅 ${d}</div>
+        <div style="font-size:14px;font-weight:700;color:#1f2937">${p.title}</div>
+        <div style="font-size:12px;color:#4b5563;margin-top:2px">📅 ${d}</div>
       </div>
-      <span style="background:${urgency};color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px">${label}</span>
+      <span style="background:${urgency};color:#fff;font-size:12px;font-weight:700;padding:4px 10px;border-radius:20px">${label}</span>
     </div>`;
   }).join("");
 
   return `<div style="background:#e0f2fe;border-radius:14px;padding:14px;margin-bottom:14px;border:1px solid #bae6fd">
-    <div style="font-weight:700;color:#0369a1;font-size:13px;margin-bottom:10px">🔧 قريباً جاهزة (${soon.length})</div>
+    <div style="font-weight:700;color:#0369a1;font-size:14px;margin-bottom:10px">🔧 قريباً جاهزة (${soon.length})</div>
     ${rows}
   </div>`;
 }
@@ -1094,15 +1105,15 @@ function buildClientCard(c) {
     <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
       <div>
         <div style="font-weight:700;font-size:15px;color:#1e3a5f">${c.name||"عميل بدون اسم"}</div>
-        ${c.phone?`<div style="font-size:12px;color:#6b7280;margin-top:3px">📞 ${c.phone}</div>`:""}
+        ${c.phone?`<div style="font-size:13px;color:#4b5563;margin-top:3px">📞 ${c.phone}</div>`:""}
       </div>
-      <span style="background:${col}20;color:${col};font-size:11px;padding:4px 12px;border-radius:20px;font-weight:700">${c.status}</span>
+      <span style="background:${col}20;color:${col};font-size:12px;padding:4px 12px;border-radius:20px;font-weight:700">${c.status}</span>
     </div>
     <div style="display:flex;gap:8px;flex-wrap:wrap">
-      ${c.wantType?`<span style="font-size:12px;color:#6b7280;background:#f1f5f9;padding:3px 8px;border-radius:6px">🏠 ${c.wantType}</span>`:""}
-      ${c.wantArea?`<span style="font-size:12px;color:#6b7280;background:#f1f5f9;padding:3px 8px;border-radius:6px">📍 ${c.wantArea}</span>`:""}
-      ${c.wantBudget?`<span style="font-size:12px;color:#059669;font-weight:600;background:#f0fdf4;padding:3px 8px;border-radius:6px">💰 ${c.wantBudget} د.ك</span>`:""}
-      ${c.wantRooms?`<span style="font-size:12px;color:#6b7280;background:#f1f5f9;padding:3px 8px;border-radius:6px">🛏 ${c.wantRooms}</span>`:""}
+      ${c.wantType?`<span style="font-size:13px;color:#4b5563;background:#f1f5f9;padding:3px 8px;border-radius:6px">🏠 ${c.wantType}</span>`:""}
+      ${c.wantArea?`<span style="font-size:13px;color:#4b5563;background:#f1f5f9;padding:3px 8px;border-radius:6px">📍 ${c.wantArea}</span>`:""}
+      ${c.wantBudget?`<span style="font-size:13px;color:#059669;font-weight:600;background:#f0fdf4;padding:3px 8px;border-radius:6px">💰 ${c.wantBudget} د.ك</span>`:""}
+      ${c.wantRooms?`<span style="font-size:13px;color:#4b5563;background:#f1f5f9;padding:3px 8px;border-radius:6px">🛏 ${c.wantRooms}</span>`:""}
     </div>
   </div>`;
 }
@@ -1118,12 +1129,12 @@ function buildCard(p) {
       <span class="tag tag-${p.status||"متاح"}" style="margin-right:10px;flex-shrink:0">${p.status||"متاح"}</span>
     </div>
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px">
-      ${(p.areaName||p.location)?`<span style="font-size:12px;color:var(--text2);background:var(--surface2);padding:3px 8px;border-radius:6px">📍 ${p.areaName?p.areaName+(p.location?" · "+p.location:""):p.location}</span>`:""}
-      ${p.price?`<span style="font-size:12px;color:var(--gold);font-weight:700;background:var(--gold-glow);padding:3px 8px;border-radius:6px">💰 ${p.price} د.ك</span>`:""}
-      ${p.rooms?`<span style="font-size:12px;color:var(--text2);background:var(--surface2);padding:3px 8px;border-radius:6px">🛏 ${p.rooms}</span>`:""}
-      ${p.area?`<span style="font-size:12px;color:var(--text2);background:var(--surface2);padding:3px 8px;border-radius:6px">📐 ${p.area}م²</span>`:""}
+      ${(p.areaName||p.location)?`<span style="font-size:13px;color:var(--text2);background:var(--surface2);padding:3px 8px;border-radius:6px">📍 ${p.areaName?p.areaName+(p.location?" · "+p.location:""):p.location}</span>`:""}
+      ${p.price?`<span style="font-size:13px;color:var(--gold);font-weight:700;background:var(--gold-glow);padding:3px 8px;border-radius:6px">💰 ${p.price} د.ك</span>`:""}
+      ${p.rooms?`<span style="font-size:13px;color:var(--text2);background:var(--surface2);padding:3px 8px;border-radius:6px">🛏 ${p.rooms}</span>`:""}
+      ${p.area?`<span style="font-size:13px;color:var(--text2);background:var(--surface2);padding:3px 8px;border-radius:6px">📐 ${p.area}م²</span>`:""}
     </div>
-    ${p.ownerName?`<div style="font-size:12px;color:var(--text3);display:flex;align-items:center;gap:4px"><span>👤</span> ${p.ownerName}</div>`:""}
+    ${p.ownerName?`<div style="font-size:13px;color:var(--text3);display:flex;align-items:center;gap:4px"><span>👤</span> ${p.ownerName}</div>`:""}
   </div>`;
 }
 
